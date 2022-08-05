@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_dangnhap"
+        android:icon="@drawable/login"
+        android:title="Đăng nhập"
+        app:cnb_backgroundColor="@color/tim_nhat" />
+    <item
+        android:id="@+id/menu_dangki"
+        android:icon="@drawable/create_account"
+        android:title="Đăng kí"
+        app:cnb_backgroundColor="@color/hong_nhat" />
+</menu>

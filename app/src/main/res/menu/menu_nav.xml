@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/fragment_home"
+        android:icon="@drawable/home"
+        android:onClick="true"
+        android:title="Trang chủ"
+        app:cnb_backgroundColor="@color/xanh_ngoc"
+        app:cnb_textColor="@color/black" />
+    <item
+        android:id="@+id/fragmentproduct"
+        android:icon="@drawable/product1"
+        android:title="Sản phẩm"
+        app:cnb_backgroundColor="@color/xanh_duong_nhat" />
+    <item
+        android:id="@+id/menu_nav_buy"
+        android:icon="@drawable/buy"
+        android:title="Giỏ hàng"
+        app:cnb_backgroundColor="@color/xanh_cay_nhat1" />
+
+    <item
+        android:id="@+id/menu_nav_user"
+        android:icon="@drawable/user"
+        android:title="Đăng nhập"
+        app:cnb_backgroundColor="@color/hong_nhat" />
+
+</menu>
