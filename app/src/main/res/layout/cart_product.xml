@@ -97,7 +97,7 @@
                             android:id="@+id/Cart_Product_btnTru"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:background="@drawable/back_Orange"
+                            android:background="@drawable/back_orange"
                             android:scaleType="fitCenter"
                             android:src="@drawable/minus" />
 
@@ -113,7 +113,7 @@
                             android:id="@+id/Cart_Product_btnCong"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:background="@drawable/back_Orange"
+                            android:background="@drawable/back_orange"
 
                             android:scaleType="fitCenter"
                             android:src="@drawable/add" />

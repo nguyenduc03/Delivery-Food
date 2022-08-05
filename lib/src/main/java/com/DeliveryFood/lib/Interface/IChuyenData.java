@@ -1,8 +1,8 @@
 package com.DeliveryFood.lib.Interface;
 
 
-import com.example.lib.Entities.Food;
-import com.example.lib.Model.FoodModel;
+import com.DeliveryFood.lib.Entities.Food;
+import com.DeliveryFood.lib.Model.FoodModel;
 
 public interface IChuyenData {
     public void ChuyenData(FoodModel.Data product);

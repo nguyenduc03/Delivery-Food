@@ -8,12 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.lib.Model.FoodModel;
-import com.example.lib.Model.InvoiceDetailModel;
-import com.example.lib.Repository.Methods;
-import com.example.lib.retrofitClient;
-import com.example.sanpham.MainActivity;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Model.FoodModel;
+import com.DeliveryFood.lib.Model.InvoiceDetailModel;
+import com.DeliveryFood.lib.Repository.Methods;
+import com.DeliveryFood.lib.retrofitClient;
+
+import com.deliveryfood.MainActivity;
+import com.deliveryfood.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

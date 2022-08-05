@@ -18,13 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.lib.Model.Account;
-import com.example.lib.Model.AccountInsertModel;
-import com.example.lib.Model.ResultModel;
-import com.example.lib.Repository.Methods;
-import com.example.lib.retrofitClient;
-import com.example.sanpham.MainActivity;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Model.Account;
+import com.DeliveryFood.lib.Model.AccountInsertModel;
+import com.DeliveryFood.lib.Model.ResultModel;
+import com.DeliveryFood.lib.Repository.Methods;
+import com.DeliveryFood.lib.retrofitClient;
+import com.deliveryfood.MainActivity;
+import com.deliveryfood.R;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -221,7 +221,7 @@ public class Profile_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.profile_fragment, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
         views views = new views();
         mapping(views);
         SignOut(views);
