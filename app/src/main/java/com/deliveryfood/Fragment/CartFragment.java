@@ -131,6 +131,8 @@ public class CartFragment extends Fragment implements ChuyenTien {
 
                     if(mainActivity.getTaiKhoan() == null ){
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                         fragmentTransaction.replace(R.id.fragmentContainerView, new NonUserProfileFragment());
                         fragmentTransaction.addToBackStack("Fragment home");
                         fragmentTransaction.commit();

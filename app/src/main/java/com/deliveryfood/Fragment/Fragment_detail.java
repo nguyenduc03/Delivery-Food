@@ -276,6 +276,8 @@ public class Fragment_detail extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                 fragmentTransaction.replace(R.id.fragmentContainerView, new CartFragment());
                 fragmentTransaction.addToBackStack("fragment cart ");
                 fragmentTransaction.commit();

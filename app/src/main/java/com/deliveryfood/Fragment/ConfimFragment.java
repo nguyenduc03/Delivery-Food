@@ -123,6 +123,8 @@ public class ConfimFragment extends Fragment {
                         if (response.body().isStatus()) {
                             Fragment fragment = new fragment_login();
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                             fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                             fragmentTransaction.addToBackStack("Fragment home");
                             fragmentTransaction.commit();

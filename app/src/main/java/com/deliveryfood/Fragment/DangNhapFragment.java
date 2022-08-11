@@ -69,6 +69,8 @@ public class DangNhapFragment extends Fragment {
 
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         Fragment fragment = new fragment_login();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
         fragmentTransaction.replace(R.id.dang_nhap_content,fragment);
         fragmentTransaction.addToBackStack("Fragment home");
         fragmentTransaction.commit();
@@ -94,6 +96,8 @@ public class DangNhapFragment extends Fragment {
                         fragment = new fragment_login();
                         break;
                 }
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                 fragmentTransaction.replace(R.id.dang_nhap_content,fragment);
                 fragmentTransaction.addToBackStack("Fragment home");
                 fragmentTransaction.commit();

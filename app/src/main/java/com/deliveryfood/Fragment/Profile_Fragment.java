@@ -153,6 +153,8 @@ public class Profile_Fragment extends Fragment {
     public void signOutTransform(){
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         Fragment fragment = new DangNhapFragment();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
         fragmentTransaction.replace(R.id.fragmentContainerView,fragment);
         fragmentTransaction.addToBackStack("Fragment home");
         fragmentTransaction.commit();
@@ -238,7 +240,9 @@ public class Profile_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment fragment = new NonUserProfileFragment();
+
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                 fragmentTransaction.replace(R.id.fragmentContainerView,new InvoiceFragment());
                 fragmentTransaction.addToBackStack("Fragment home");
                 fragmentTransaction.commit();

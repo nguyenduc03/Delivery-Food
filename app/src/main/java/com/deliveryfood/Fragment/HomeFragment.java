@@ -145,6 +145,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Fragment fragment = new DangNhapFragment();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                 fragmentTransaction.addToBackStack("Fragment home");
 
@@ -160,6 +162,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Fragment fragment = new fragmentproduct();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                 fragmentTransaction.addToBackStack("Fragment home");
                 MainActivity mainActivity = (MainActivity) getActivity();
@@ -174,6 +178,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Fragment fragment = new CartFragment();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                 fragmentTransaction.addToBackStack("Fragment home");
                 MainActivity mainActivity = (MainActivity) getActivity();

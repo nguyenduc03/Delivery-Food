@@ -88,6 +88,8 @@ public class fragment_login extends Fragment {
             public void onClick(View view) {
                 Fragment fragment = new RegisterFragment();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                 fragmentTransaction.addToBackStack("Fragment home");
                 fragmentTransaction.commit();
@@ -111,6 +113,8 @@ public class fragment_login extends Fragment {
                             mainActivity.taiKhoan = (loginAccount);
                             updateCart(loginAccount);
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                             fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                             fragmentTransaction.addToBackStack("Fragment home");
                             mainActivity.ChipNavigationBar.setItemSelected(R.id.fragment_home,true);

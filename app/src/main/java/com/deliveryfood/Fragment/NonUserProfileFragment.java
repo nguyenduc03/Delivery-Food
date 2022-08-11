@@ -77,6 +77,8 @@ public class NonUserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                 fragmentTransaction.replace(R.id.fragmentContainerView, new RegisterFragment());
                 fragmentTransaction.addToBackStack("Fragment Detail");
                 fragmentTransaction.commit();
@@ -86,6 +88,8 @@ public class NonUserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                 fragmentTransaction.replace(R.id.fragmentContainerView, new fragment_login());
                 fragmentTransaction.addToBackStack("Fragment Detail");
                 fragmentTransaction.commit();

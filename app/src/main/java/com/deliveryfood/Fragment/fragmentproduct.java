@@ -115,6 +115,8 @@ public class fragmentproduct extends Fragment  {
             public void onClick(View v) {
                 Fragment fragment = new CartFragment();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+
                 fragmentTransaction.replace(R.id.fragmentContainerView,fragment);
                 fragmentTransaction.addToBackStack("Fragment home");
                 fragmentTransaction.commit();
