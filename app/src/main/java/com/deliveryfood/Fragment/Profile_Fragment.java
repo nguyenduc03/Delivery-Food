@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,24 +78,24 @@ public class Profile_Fragment extends Fragment {
     }
 
     public class views{
-        ImageView imageView;
+
         TextView ten;
         TextView sdt;
         TextView address;
-        Button btn_chonHinh;
+        ImageButton btn_chonHinh;
         Button btn_save;
         Button btn_dangxuat;
         Button btn_deal;
     }
 
     public void mapping(views views){
-        views.imageView = view.findViewById(R.id.profile_imageView);
+
         views.ten  = view.findViewById(R.id.profile_ten);
         views.sdt  = view.findViewById(R.id.profile_sdt);
         views.address  = view.findViewById(R.id.profile_Address);
         views.btn_chonHinh = view.findViewById(R.id.btn_chonHinh);
         views.btn_save = view.findViewById(R.id.btn_save);
-        views.btn_dangxuat = view.findViewById(R.id.btn_dangxuat);
+        views.btn_dangxuat = view.findViewById(R.id.btn_logout);
         views.btn_deal= view.findViewById(R.id.btn_deal);
     }
 
@@ -167,9 +168,9 @@ public class Profile_Fragment extends Fragment {
         views.btn_chonHinh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                XinQuyen();
+                permission();
             }
-            public void Chonhinh() {
+            public void Choose_img() {
                 // Show va load hinh trong thu vien
                 TedBottomPicker.with(getActivity())
                         .show(new TedBottomSheetDialogFragment.OnImageSelectedListener() {
@@ -178,7 +179,7 @@ public class Profile_Fragment extends Fragment {
                                 Bitmap bitmap = null;
                                 try {
                                     bitmap = MediaStore.Images.Media.getBitmap(view.getContext().getContentResolver(), uri);
-                                    views.imageView.setImageBitmap(bitmap);
+                                    views.btn_chonHinh.setImageBitmap(bitmap);
 
                                 } catch (IOException e) {
                                     e.printStackTrace();
@@ -186,12 +187,12 @@ public class Profile_Fragment extends Fragment {
                             }
                         });
             }
-            private void XinQuyen() {
+            private void permission() {
                 // xin quyen thu vien anh
                 PermissionListener permissionlistener = new PermissionListener() {
                     @Override
                     public void onPermissionGranted() {
-                        Chonhinh();
+                        Choose_img();
                     }
 
                     @Override

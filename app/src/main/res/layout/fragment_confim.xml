@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragment.ConfimFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        >
+
+        <ImageButton
+            android:id="@+id/btn_back_DangKi"
+            android:layout_width="55dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/back_edit_txt"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back" />
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="50dp"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/txt_OTP"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:inputType="text"
+        android:hint="Nhập mã số xác nhận" />
+    <Button
+        android:id="@+id/btn_XacNhan"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Xác nhận"
+        />
+</LinearLayout>
+
+</LinearLayout>

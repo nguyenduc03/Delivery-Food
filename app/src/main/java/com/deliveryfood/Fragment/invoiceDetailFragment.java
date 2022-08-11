@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.lib.Model.Invoice;
-import com.example.lib.Model.InvoiceDetailModel;
-import com.example.lib.Model.InvoiceModel;
-import com.example.lib.Repository.Methods;
-import com.example.lib.retrofitClient;
-import com.example.sanpham.Adapter.detailBillApdapter;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Model.Invoice;
+import com.DeliveryFood.lib.Model.InvoiceDetailModel;
+import com.DeliveryFood.lib.Model.InvoiceModel;
+import com.DeliveryFood.lib.Repository.Methods;
+import com.DeliveryFood.lib.retrofitClient;
+import com.deliveryfood.Adapter.detailBillApdapter;
+import com.deliveryfood.R;
 
 import java.util.List;
 
@@ -93,7 +93,7 @@ public class invoiceDetailFragment extends Fragment {
                 detailBillApdapter detailBillApdapter =
                         new detailBillApdapter(
                                 getActivity(),
-                                R.layout.san_pham,
+                                R.layout.item_product,
                                 list
                         );
                 listView.setAdapter(detailBillApdapter);

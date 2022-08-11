@@ -1,6 +1,6 @@
 package com.DeliveryFood.lib.Model;
 
-import com.example.lib.Entities.Category;
+import com.DeliveryFood.lib.Entities.Category;
 
 import java.io.Serializable;
 import java.util.List;

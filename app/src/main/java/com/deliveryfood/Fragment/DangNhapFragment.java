@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.sanpham.R;
+import com.deliveryfood.R;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 /**
@@ -65,10 +65,10 @@ public class DangNhapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_dangnhap2, container, false);
+        view = inflater.inflate(R.layout.fragment_login_test, container, false);
 
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        Fragment fragment = new fragment_dangnhap();
+        Fragment fragment = new fragment_login();
         fragmentTransaction.replace(R.id.dang_nhap_content,fragment);
         fragmentTransaction.addToBackStack("Fragment home");
         fragmentTransaction.commit();
@@ -88,10 +88,10 @@ public class DangNhapFragment extends Fragment {
                 Fragment fragment = null;
                 switch (i){
                     case R.id.menu_dangki:
-                        fragment = new DangKiFragment();
+                        fragment = new RegisterFragment();
                         break;
                     case R.id.menu_dangnhap:
-                        fragment = new fragment_dangnhap();
+                        fragment = new fragment_login();
                         break;
                 }
                 fragmentTransaction.replace(R.id.dang_nhap_content,fragment);

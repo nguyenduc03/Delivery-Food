@@ -12,11 +12,11 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.lib.Model.AccountInsertModel;
-import com.example.lib.Model.ResultModel;
-import com.example.lib.Repository.Methods;
-import com.example.lib.retrofitClient;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Model.AccountInsertModel;
+import com.DeliveryFood.lib.Model.ResultModel;
+import com.DeliveryFood.lib.Repository.Methods;
+import com.DeliveryFood.lib.retrofitClient;
+import com.deliveryfood.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -121,7 +121,7 @@ public class ConfimFragment extends Fragment {
                     @Override
                     public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
                         if (response.body().isStatus()) {
-                            Fragment fragment = new fragment_dangnhap();
+                            Fragment fragment = new fragment_login();
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                             fragmentTransaction.addToBackStack("Fragment home");

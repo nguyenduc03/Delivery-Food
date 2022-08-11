@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.lib.Model.FoodModel;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Model.FoodModel;
+import com.deliveryfood.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

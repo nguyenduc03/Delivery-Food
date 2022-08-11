@@ -16,16 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.lib.Interface.IChuyenData;
-import com.example.lib.Model.Account;
-import com.example.lib.Model.FoodModel;
-import com.example.lib.Model.ResultModel;
-import com.example.lib.Repository.Methods;
-import com.example.lib.retrofitClient;
-import com.example.sanpham.Adapter.PhotoAdapter;
-import com.example.sanpham.Adapter.ProductAdapterRecyclerview;
-import com.example.sanpham.MainActivity;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Interface.IChuyenData;
+import com.DeliveryFood.lib.Model.Account;
+import com.DeliveryFood.lib.Model.FoodModel;
+import com.DeliveryFood.lib.Model.ResultModel;
+import com.DeliveryFood.lib.Repository.Methods;
+import com.DeliveryFood.lib.retrofitClient;
+import com.deliveryfood.Adapter.PhotoAdapter;
+import com.deliveryfood.Adapter.ProductAdapterRecyclerview;
+import com.deliveryfood.MainActivity;
+import com.deliveryfood.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         mainActivity  = (MainActivity) getActivity();
         account = mainActivity.getTaiKhoan();
-        View view= inflater.inflate(R.layout.fragment_home_1, container, false);
+        View view= inflater.inflate(R.layout.fragment_home, container, false);
         viewPager = view.findViewById(R.id.viewPager_home);
         circleIndicator = view.findViewById(R.id.CircleIndicator_home);
         recyclerView = view.findViewById(R.id.list_spMoi);
@@ -197,7 +197,7 @@ public class HomeFragment extends Fragment {
                 FoodModel temp = new FoodModel();
                 temp.setData(response.body().getData());
                 ProductAdapterRecyclerview categoryApdapter =
-                        new ProductAdapterRecyclerview(getContext(), R.layout.san_pham,
+                        new ProductAdapterRecyclerview(getContext(), R.layout.item_product,
                                 temp.getData(), new ProductAdapterRecyclerview.OnNoteListener() {
                             @Override
                             public void onNoteClick(FoodModel.Data position) {
@@ -230,7 +230,7 @@ public class HomeFragment extends Fragment {
                 temp.setData(response.body().getData());
                 mainActivity.listProduct = temp.getData();
                 ProductAdapterRecyclerview categoryApdapter =
-                        new ProductAdapterRecyclerview(getContext(), R.layout.san_pham,
+                        new ProductAdapterRecyclerview(getContext(), R.layout.item_product,
                                 temp.getData(), new ProductAdapterRecyclerview.OnNoteListener() {
                             @Override
                             public void onNoteClick(FoodModel.Data position) {

@@ -189,7 +189,7 @@ public class fragmentproduct extends Fragment  {
                                                     ProductAdapter productAdapter =
                                                             new ProductAdapter(
                                                                     getActivity(),
-                                                                    R.layout.san_pham,
+                                                                    R.layout.item_product,
                                                                     foods
                                                             );
                                                     listView.setAdapter(productAdapter);
@@ -217,7 +217,7 @@ public class fragmentproduct extends Fragment  {
         ProductAdapter productAdapter =
                 new ProductAdapter(
                         getActivity(),
-                        R.layout.san_pham,
+                        R.layout.item_product,
                         listProduct
                 );
         mainActivity.listProduct = listProduct;
@@ -250,7 +250,7 @@ public class fragmentproduct extends Fragment  {
                             ProductAdapter productAdapter =
                                     new ProductAdapter(
                                             getActivity(),
-                                            R.layout.san_pham,
+                                            R.layout.item_product,
                                             foods
 
                                     );

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.sanpham.R;
+import com.deliveryfood.R;
 
 public class fragment_products extends Fragment {
     @Nullable

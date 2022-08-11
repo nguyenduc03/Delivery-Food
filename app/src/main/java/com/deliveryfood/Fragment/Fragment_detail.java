@@ -20,19 +20,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.lib.Entities.Cart;
-import com.example.lib.Entities.Category;
-import com.example.lib.Interface.IChuyenData;
-import com.example.lib.Model.FoodModel;
-import com.example.lib.Model.ResultModel;
-import com.example.lib.Model.ToppingModel;
-import com.example.lib.Repository.Methods;
-import com.example.lib.retrofitClient;
-import com.example.sanpham.Adapter.ItemFoodAdapterRecyclerview;
-import com.example.sanpham.Adapter.PhotoAdapter;
-import com.example.sanpham.Adapter.ToppingAdapterRecyclerview;
-import com.example.sanpham.MainActivity;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Entities.Cart;
+import com.DeliveryFood.lib.Entities.Category;
+import com.DeliveryFood.lib.Interface.IChuyenData;
+import com.DeliveryFood.lib.Model.FoodModel;
+import com.DeliveryFood.lib.Model.ResultModel;
+import com.DeliveryFood.lib.Model.ToppingModel;
+import com.DeliveryFood.lib.Repository.Methods;
+import com.DeliveryFood.lib.retrofitClient;
+import com.deliveryfood.Adapter.ItemFoodAdapterRecyclerview;
+import com.deliveryfood.Adapter.PhotoAdapter;
+import com.deliveryfood.Adapter.ToppingAdapterRecyclerview;
+import com.deliveryfood.MainActivity;
+import com.deliveryfood.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +107,7 @@ public class Fragment_detail extends Fragment {
         count = 0;
         mainActivity = (MainActivity) getActivity();
 
-        view = inflater.inflate(R.layout.fragment_detail_test, container, false);
+        view = inflater.inflate(R.layout.fragment_detail, container, false);
         viewPager = view.findViewById(R.id.view_Pager_Detail);
         circleIndicator = view.findViewById(R.id.Circle_Indicator_Detail);
 
@@ -164,7 +164,7 @@ public class Fragment_detail extends Fragment {
             public void onResponse(Call<FoodModel> call, Response<FoodModel> response) {
 
                 ItemFoodAdapterRecyclerview categoryApdapter =
-                        new ItemFoodAdapterRecyclerview(getContext(), R.layout.item_food,
+                        new ItemFoodAdapterRecyclerview(getContext(), R.layout.item_product,
                                 response.body().getData(), new ItemFoodAdapterRecyclerview.OnNoteListener() {
                             @Override
                             public void onNoteClick(FoodModel.Data position) {
@@ -194,7 +194,7 @@ public class Fragment_detail extends Fragment {
             public void onResponse(Call<ToppingModel> call, Response<ToppingModel> response) {
                 // day data len giao dien
                 ToppingAdapterRecyclerview categoryApdapter =
-                        new ToppingAdapterRecyclerview(getContext(), R.layout.san_pham,
+                        new ToppingAdapterRecyclerview(getContext(), R.layout.item_product,
                                 response.body().getData());
                 categoryApdapter.setList(response.body().getData());
                 GridLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 2);

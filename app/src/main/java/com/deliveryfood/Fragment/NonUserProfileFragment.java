@@ -9,7 +9,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.sanpham.R;
+import com.deliveryfood.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,7 +77,7 @@ public class NonUserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainerView, new DangKiFragment());
+                fragmentTransaction.replace(R.id.fragmentContainerView, new RegisterFragment());
                 fragmentTransaction.addToBackStack("Fragment Detail");
                 fragmentTransaction.commit();
             }
@@ -86,7 +86,7 @@ public class NonUserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainerView, new fragment_dangnhap());
+                fragmentTransaction.replace(R.id.fragmentContainerView, new fragment_login());
                 fragmentTransaction.addToBackStack("Fragment Detail");
                 fragmentTransaction.commit();
             }

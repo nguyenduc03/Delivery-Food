@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.sanpham.R;
+import com.deliveryfood.R;
 
 
 public class fragment_home extends Fragment {

@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lib.Model.InvoiceModel;
-import com.example.sanpham.Fragment.invoiceDetailFragment;
-import com.example.sanpham.MainActivity;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Model.InvoiceModel;
+import com.deliveryfood.Fragment.invoiceDetailFragment;
+import com.deliveryfood.MainActivity;
+import com.deliveryfood.R;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.FoodView
     @NonNull
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.invoice_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_invoice, parent, false);
         return new FoodViewHolder(view);
     }
 

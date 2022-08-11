@@ -14,17 +14,17 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.lib.Entities.Cart;
-import com.example.lib.Interface.ChuyenTien;
-import com.example.lib.Interface.IChuyenData;
-import com.example.lib.Model.Account;
-import com.example.lib.Model.FoodModel;
-import com.example.lib.Model.ResultModel;
-import com.example.lib.Repository.Methods;
-import com.example.lib.retrofitClient;
-import com.example.sanpham.Adapter.CartProductAdapter;
-import com.example.sanpham.MainActivity;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Entities.Cart;
+import com.DeliveryFood.lib.Interface.ChuyenTien;
+import com.DeliveryFood.lib.Interface.IChuyenData;
+import com.DeliveryFood.lib.Model.Account;
+import com.DeliveryFood.lib.Model.FoodModel;
+import com.DeliveryFood.lib.Model.ResultModel;
+import com.DeliveryFood.lib.Repository.Methods;
+import com.DeliveryFood.lib.retrofitClient;
+import com.deliveryfood.Adapter.CartProductAdapter;
+import com.deliveryfood.MainActivity;
+import com.deliveryfood.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lib.Model.FoodModel;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Model.FoodModel;
+import com.deliveryfood.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class ProductAdapterRecyclerview extends RecyclerView.Adapter<ProductAdap
     @NonNull
     @Override
     public HangDTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.san_pham,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product,parent,false);
         return new HangDTViewHolder(view);
 
     }

@@ -3,7 +3,6 @@ package com.deliveryfood;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -21,7 +20,7 @@ import com.deliveryfood.Fragment.CartFragment;
 import com.deliveryfood.Fragment.Fragment_detail;
 import com.deliveryfood.Fragment.HomeFragment;
 import com.deliveryfood.Fragment.Profile_Fragment;
-import com.deliveryfood.Fragment.fragment_dangnhap;
+import com.deliveryfood.Fragment.fragment_login;
 import com.deliveryfood.Fragment.fragmentproduct;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
                         break;
                     case R.id.menu_nav_user:
                         if(taiKhoan ==  null)
-                            fragment = new fragment_dangnhap();
+                            fragment = new fragment_login();
                         else
                             fragment = new Profile_Fragment(taiKhoan);
                         break;

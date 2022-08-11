@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:id="@+id/item_topping"
+    android:gravity="center"
+    android:layout_marginTop="20dp"
+    android:layout_height="wrap_content">
+    <CheckBox
+        android:id="@+id/cb_topping"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="50dp"
+        android:layout_marginLeft="5dp"
+
+        android:layout_height="50dp"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txt_NameTopping"
+        app:layout_constraintStart_toEndOf="@+id/cb_topping"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/img_topping"
+            android:scaleType="fitXY"
+            android:src="@drawable/img1" />
+    </androidx.cardview.widget.CardView>
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:orientation="vertical"
+       android:gravity="center"
+       android:layout_height="wrap_content">
+       <TextView
+           android:id="@+id/txt_NameTopping"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Trân châu trắng"
+           android:paddingLeft="20dp"
+           android:textSize="15sp"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="@+id/cb_topping"
+           app:layout_constraintTop_toTopOf="parent" />
+
+       <TextView
+           android:id="@+id/txt_PriceTopping"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:paddingLeft="20dp"
+           android:text="123312"
+           android:textSize="15sp"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="@+id/cb_topping"
+           app:layout_constraintTop_toBottomOf="@+id/txt_NameTopping" />
+   </LinearLayout>
+</LinearLayout>

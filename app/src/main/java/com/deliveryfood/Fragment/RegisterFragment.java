@@ -11,10 +11,10 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.lib.Model.AccountInsertModel;
-import com.example.lib.Repository.Methods;
-import com.example.lib.retrofitClient;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Model.AccountInsertModel;
+import com.DeliveryFood.lib.Repository.Methods;
+import com.DeliveryFood.lib.retrofitClient;
+import com.deliveryfood.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,10 +22,10 @@ import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DangKiFragment#newInstance} factory method to
+ * Use the {@link RegisterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DangKiFragment extends Fragment {
+public class RegisterFragment extends Fragment {
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -36,7 +36,7 @@ public class DangKiFragment extends Fragment {
     EditText password;
     Button btn_go_DangNhap;
     private View result;
-    public DangKiFragment() {
+    public RegisterFragment() {
         // Required empty public constructor
     }
 
@@ -49,8 +49,8 @@ public class DangKiFragment extends Fragment {
      * @return A new instance of fragment DangKiFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DangKiFragment newInstance(String param1, String param2) {
-        DangKiFragment fragment = new DangKiFragment();
+    public static RegisterFragment newInstance(String param1, String param2) {
+        RegisterFragment fragment = new RegisterFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,7 +70,7 @@ public class DangKiFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        result = inflater.inflate(R.layout.fragment_dangki, container, false);;
+        result = inflater.inflate(R.layout.fragment_register, container, false);;
         anhxa();
         Button btn = result.findViewById(R.id.dangki);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +83,7 @@ public class DangKiFragment extends Fragment {
         btn_go_DangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new fragment_dangnhap();
+                Fragment fragment = new fragment_login();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                 fragmentTransaction.addToBackStack("Fragment home");

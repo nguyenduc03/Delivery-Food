@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lib.Model.ToppingModel;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Model.ToppingModel;
+import com.deliveryfood.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class ToppingAdapterRecyclerview extends RecyclerView.Adapter<ToppingAdap
     @NonNull
     @Override
     public HangDTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.topping_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topping,parent,false);
         return new HangDTViewHolder(view);
 
     }

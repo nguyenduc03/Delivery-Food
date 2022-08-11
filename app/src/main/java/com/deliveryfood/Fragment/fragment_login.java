@@ -13,14 +13,14 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.lib.Entities.Cart;
-import com.example.lib.Interface.IChuyenData;
-import com.example.lib.Model.Account;
-import com.example.lib.Model.AccountInsertModel;
-import com.example.lib.Repository.Methods;
-import com.example.lib.retrofitClient;
-import com.example.sanpham.MainActivity;
-import com.example.sanpham.R;
+import com.DeliveryFood.lib.Entities.Cart;
+import com.DeliveryFood.lib.Interface.IChuyenData;
+import com.DeliveryFood.lib.Model.Account;
+import com.DeliveryFood.lib.Model.AccountInsertModel;
+import com.DeliveryFood.lib.Repository.Methods;
+import com.DeliveryFood.lib.retrofitClient;
+import com.deliveryfood.MainActivity;
+import com.deliveryfood.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -33,10 +33,10 @@ import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_dangnhap#newInstance} factory method to
+ * Use the {@link fragment_login#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_dangnhap extends Fragment {
+public class fragment_login extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,11 +55,11 @@ public class fragment_dangnhap extends Fragment {
     public Account loginAccount;
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN =001;
-    public fragment_dangnhap() {
+    public fragment_login() {
 
     }
-    public static fragment_dangnhap newInstance(String param1, String param2) {
-        fragment_dangnhap fragment = new fragment_dangnhap();
+    public static fragment_login newInstance(String param1, String param2) {
+        fragment_login fragment = new fragment_login();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -80,13 +80,13 @@ public class fragment_dangnhap extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_dangnhap, container, false);
+        view =  inflater.inflate(R.layout.fragment_login, container, false);
         Methods methods = retrofitClient.getRetrofit().create(Methods.class);
         anhXa();
         btn_go_DangKi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new DangKiFragment();
+                Fragment fragment = new RegisterFragment();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                 fragmentTransaction.addToBackStack("Fragment home");
