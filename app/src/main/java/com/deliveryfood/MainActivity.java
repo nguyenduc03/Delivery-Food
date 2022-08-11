@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
         //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
         listProduct = new ArrayList<FoodModel.Data>();
-        ChipNavigationBar = findViewById(R.id.menu_nav);
+        ChipNavigationBar = findViewById(R.id.menu_Navigation);
         ChipNavigationBar.setItemSelected(R.id.fragment_home, true);
         cartItems = new ArrayList<Cart>();
         categorylist = new ArrayList<>();
@@ -151,8 +151,8 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
 
     @Override
     public void ChuyenTongTien(float Tien) {
-        TextView Text = findViewById(R.id.txt_tongTien);
-        Text.setText(Float.toString(Tien));
+       // TextView Text = findViewById(R.id.txt_tongTien);
+      //  Text.setText(Float.toString(Tien));
     }
 
     @Override
