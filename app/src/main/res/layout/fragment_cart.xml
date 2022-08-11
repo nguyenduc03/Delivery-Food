@@ -24,7 +24,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="6dp"
-                android:background="@drawable/back_edit_txt"
+                android:background="@drawable/back_btn_xam"
                 android:scaleType="fitCenter"
                 android:src="@drawable/back" />
 
@@ -103,7 +103,7 @@
                         android:layout_height="40dp"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/back_cam"
+                        android:background="@drawable/back_orange"
                         android:maxHeight="100dp"
                         android:text="Đặt hàng"
                         android:textAllCaps="false"
@@ -116,7 +116,7 @@
                         android:layout_height="40dp"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/back_cam"
+                        android:background="@drawable/back_orange"
                         android:maxHeight="100dp"
                         android:text="Momo"
                         android:textAllCaps="false"

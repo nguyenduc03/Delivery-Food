@@ -179,9 +179,9 @@
                             android:layout_width="35dp"
                             android:id="@+id/detail_sl_tru"
                             android:layout_height="35dp"
-                            android:background="@drawable/back_cam"
+                            android:background="@drawable/back_orange"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/dau_tru" />
+                            android:src="@drawable/minus" />
                         <EditText
                             android:layout_width="70dp"
                             android:text="125"
@@ -194,10 +194,10 @@
                         <ImageButton
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:src="@drawable/dau_cong"
+                            android:src="@drawable/add"
                             android:id="@+id/detail_sl_cong"
                             android:scaleType="fitCenter"
-                            android:background="@drawable/back_cam"
+                            android:background="@drawable/back_orange"
                             />
                     </LinearLayout>
                 </LinearLayout>
@@ -212,7 +212,7 @@
                         android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:id="@+id/detail_btnThemSP"
-                        android:background="@drawable/back_cam"
+                        android:background="@drawable/back_orange"
                         android:text="Thêm vào giỏ hàng"
                         android:textAllCaps="false"
                          />

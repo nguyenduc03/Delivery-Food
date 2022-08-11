@@ -116,8 +116,9 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
                             fragment = new Profile_Fragment(taiKhoan);
                         break;
                 }
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                fragmentTransaction.addToBackStack("Fragment home");
                 fragmentTransaction.commit();
             }
         });
