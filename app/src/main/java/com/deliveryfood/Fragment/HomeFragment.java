@@ -190,7 +190,7 @@ public class HomeFragment extends Fragment {
 
 
         SPMoi();
-//        SPBanChay();
+       SPBanChay();
         return view;
     }
 
