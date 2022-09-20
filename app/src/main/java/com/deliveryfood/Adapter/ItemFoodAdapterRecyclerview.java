@@ -17,21 +17,21 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ItemFoodAdapterRecyclerview extends RecyclerView.Adapter<ItemFoodAdapterRecyclerview.HangDTViewHolder>{
+public class ItemFoodAdapterRecyclerview extends RecyclerView.Adapter<ItemFoodAdapterRecyclerview.HangDTViewHolder> {
 
     Context context;
     int layout;
-    private List<FoodModel.Data>  List;
+    private List<FoodModel.Data> List;
     OnNoteListener onclick;
 
-    public ItemFoodAdapterRecyclerview(Context context, int layout, List<FoodModel.Data>  List, OnNoteListener onclick) {
+    public ItemFoodAdapterRecyclerview(Context context, int layout, List<FoodModel.Data> List, OnNoteListener onclick) {
         this.context = context;
         this.layout = layout;
         this.List = List;
         this.onclick = onclick;
     }
 
-    public void setList(List<FoodModel.Data>  List) {
+    public void setList(List<FoodModel.Data> List) {
         this.List = List;
         notifyDataSetChanged();
     }
@@ -39,7 +39,7 @@ public class ItemFoodAdapterRecyclerview extends RecyclerView.Adapter<ItemFoodAd
     @NonNull
     @Override
     public HangDTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
         return new HangDTViewHolder(view);
 
     }
@@ -47,13 +47,12 @@ public class ItemFoodAdapterRecyclerview extends RecyclerView.Adapter<ItemFoodAd
     @Override
     public void onBindViewHolder(@NonNull HangDTViewHolder holder, int position) {
         FoodModel.Data Food = List.get(position);
-        if(Food == null)
+        if (Food == null)
             return;
-        else
-        {
+        else {
             Picasso.get().load(Food.getPicture()).into(holder.Img);
             holder.Name.setText(Food.getName_Food());
-            holder.gia.setText(Float.toString((float)Food.getPrice()));
+            holder.gia.setText(Float.toString((float) Food.getPrice()));
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,12 +65,12 @@ public class ItemFoodAdapterRecyclerview extends RecyclerView.Adapter<ItemFoodAd
 
     @Override
     public int getItemCount() {
-        if(List!= null)
+        if (List != null)
             return List.size();
         return 0;
     }
 
-    public   class  HangDTViewHolder extends RecyclerView.ViewHolder {
+    public class HangDTViewHolder extends RecyclerView.ViewHolder {
         TextView Name;
         ImageView Img;
         TextView gia;
@@ -86,7 +85,7 @@ public class ItemFoodAdapterRecyclerview extends RecyclerView.Adapter<ItemFoodAd
         }
     }
 
-    public interface OnNoteListener{
+    public interface OnNoteListener {
         void onNoteClick(FoodModel.Data position);
     }
 }

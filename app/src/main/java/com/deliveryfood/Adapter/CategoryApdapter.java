@@ -36,17 +36,16 @@ public class CategoryApdapter extends RecyclerView.Adapter<CategoryApdapter.Cate
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category, parent, false);
         return new CategoryViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category category = list.get(position);
-        if(category == null)
+        if (category == null)
             return;
-        else
-        {
+        else {
             System.out.println(category.getPicture());
             Picasso.get().load(category.getPicture()).into(holder.imgHangSX);
             holder.Name.setText(category.getName_Category());
@@ -66,19 +65,20 @@ public class CategoryApdapter extends RecyclerView.Adapter<CategoryApdapter.Cate
         return 0;
     }
 
-    public  class CategoryViewHolder extends RecyclerView.ViewHolder {
+    public class CategoryViewHolder extends RecyclerView.ViewHolder {
         ImageView imgHangSX;
         TextView Name;
         LinearLayout item_cate;
+
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             Name = itemView.findViewById(R.id.name_Category);
-                    imgHangSX = itemView.findViewById(R.id.img);
+            imgHangSX = itemView.findViewById(R.id.img);
             item_cate = itemView.findViewById(R.id.item_cate);
         }
     }
 
-    public interface OnNoteListener{
+    public interface OnNoteListener {
         void onNoteClick(Category position);
     }
 }

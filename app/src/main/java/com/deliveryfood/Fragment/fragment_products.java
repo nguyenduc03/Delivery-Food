@@ -13,9 +13,10 @@ import com.deliveryfood.R;
 public class fragment_products extends Fragment {
     @Nullable
     View result;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        result = inflater.inflate(R.layout.fragment_products,container,false);
+        result = inflater.inflate(R.layout.fragment_products, container, false);
         return result;
     }
 }

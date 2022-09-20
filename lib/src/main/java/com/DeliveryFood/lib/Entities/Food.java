@@ -16,6 +16,16 @@ public class Food {
         private String dateAdd;
         private String description;
         private String picture;
+
+        public double getRating() {
+            return rating;
+        }
+
+        public void setRating(double rating) {
+            this.rating = rating;
+        }
+
+        private double rating;
         private float price;
         private boolean available;
 

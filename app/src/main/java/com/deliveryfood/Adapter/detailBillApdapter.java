@@ -66,7 +66,7 @@ public class detailBillApdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         InvoiceDetailModel.obj InvoiceDetail = detailList.get(position);
-        viewHolder.gia.setText(Float.toString( (float) InvoiceDetail.getUnitPrice())+"đ");
+        viewHolder.gia.setText(Float.toString((float) InvoiceDetail.getUnitPrice()) + "đ");
         viewHolder.MoTa.setText("Số lượng: " + Integer.toString(InvoiceDetail.getQuantity()));
         viewHolder.MoTa.setTextSize(15);
         FoodModel.Data food = getFood(InvoiceDetail.getID_Food());
@@ -75,43 +75,44 @@ public class detailBillApdapter extends BaseAdapter {
         return convertView;
     }
 
-    private FoodModel.Data getFood(String id_food) {
-         // lay food ve
-        MainActivity mainActivity= (MainActivity) context;
+    private FoodModel.Data getFood(int id_food) {
+        // lay food ve
+        MainActivity mainActivity = (MainActivity) context;
 
-        List<FoodModel.Data> dataList= mainActivity.getListProduct();
-            if(dataList.size()==0)
-            {
-                Methods methods = retrofitClient.getRetrofit().create(Methods.class);
-                Call<FoodModel> call = methods.getNewFood();
-                call.enqueue(new Callback<FoodModel>() {
-                    @Override
-                    public void onResponse(Call<FoodModel> call, Response<FoodModel> response) {
-                        if(response.body().getData().size()!=0 ){
-                            mainActivity.listProduct=response.body().getData();
-                        }
+        List<FoodModel.Data> dataList = mainActivity.getListProduct();
+        if (dataList.size() == 0) {
+            Methods methods = retrofitClient.getRetrofit().create(Methods.class);
+            Call<FoodModel> call = methods.getNewFood();
+            call.enqueue(new Callback<FoodModel>() {
+                @Override
+                public void onResponse(Call<FoodModel> call, Response<FoodModel> response) {
+                    if (response.body().getData().size() != 0) {
+                        mainActivity.listProduct = response.body().getData();
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<FoodModel> call, Throwable t) {
-                    }
-                });
+                @Override
+                public void onFailure(Call<FoodModel> call, Throwable t) {
+                }
+            });
 
-            }
-            dataList=mainActivity.getListProduct();
-            FoodModel.Data food=   getFoodByID(id_food,dataList);
+        }
+        dataList = mainActivity.getListProduct();
+        FoodModel.Data food = getFoodByID(id_food, dataList);
 
-            return food;
+        return food;
 
     }
-    private FoodModel.Data getFoodByID(String id_food , List<FoodModel.Data> Foods) {
+
+    private FoodModel.Data getFoodByID(int id_food, List<FoodModel.Data> Foods) {
         for (FoodModel.Data temp : Foods
         ) {
-            if (temp.getID_Food().equals(id_food) )
+            if (temp.getID_Food() == (id_food))
                 return temp;
         }
         return null;
     }
+
     private static class ViewHolder {
         TextView Name;
         ImageView Img;

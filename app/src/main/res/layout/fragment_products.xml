@@ -3,30 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="25dp"
     tools:context=".Fragment.fragmentproduct">
 
     <LinearLayout
-        android:layout_width="match_parent"
         android:id="@+id/Content_layout"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:gravity="center"
+                android:layout_height="0dp"
                 android:layout_margin="10dp"
                 android:layout_weight="0.7"
-                android:layout_height="0dp">
+                android:gravity="center">
+
                 <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.8"
-                    android:gravity="center"
-                    android:layout_height="wrap_content">
+                    android:gravity="center">
 
                     <EditText
                         android:id="@+id/txt_inputProduct"
@@ -49,15 +50,16 @@
 
                 <ImageButton
                     android:id="@+id/product_btn_cart"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:layout_weight="0.2"
-                    android:layout_width="0dp"
-                    android:src="@drawable/buy"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
                     android:paddingTop="7dp"
-                    android:layout_height="50dp"/>
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/buy" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -70,20 +72,21 @@
                     android:orientation="horizontal" />
             </LinearLayout>
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Danh sách sản phẩm "
             android:paddingLeft="10dp"
             android:paddingBottom="10dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:text="Danh sách sản phẩm "
             android:textColor="@color/cam"
-            />
-        <ListView
-            android:id="@+id/listview"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ListProduct"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="9"/>
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
 </FrameLayout>

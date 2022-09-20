@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ToppingAdapterRecyclerview extends RecyclerView.Adapter<ToppingAdapterRecyclerview.HangDTViewHolder>{
+public class ToppingAdapterRecyclerview extends RecyclerView.Adapter<ToppingAdapterRecyclerview.HangDTViewHolder> {
 
     Context context;
     int layout;
@@ -37,48 +37,43 @@ public class ToppingAdapterRecyclerview extends RecyclerView.Adapter<ToppingAdap
     @NonNull
     @Override
     public HangDTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topping,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topping, parent, false);
         return new HangDTViewHolder(view);
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull HangDTViewHolder holder, int position) {
         ToppingModel.Data Topping = List.get(position);
-        if(Topping == null)
+        if (Topping == null)
             return;
-        else
-        {
+        else {
             Picasso.get().load(Topping.getImg()).into(holder.Img);
             holder.Name.setText(Topping.getName_Topping());
-            holder.gia.setText(Float.toString((float)Topping.getPrice()));
+            holder.gia.setText(Float.toString((float) Topping.getPrice()));
         }
         holder.itemView.setOnClickListener(view -> {
             List.get(position);
-            if(holder.cb_topping.isChecked())
-            {
+            if (holder.cb_topping.isChecked()) {
                 holder.cb_topping.setChecked(false);
-
-            }
-            else {
+            } else {
                 holder.cb_topping.setChecked(true);
-
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if(List!= null)
+        if (List != null)
             return List.size();
         return 0;
     }
 
-    public   class  HangDTViewHolder extends RecyclerView.ViewHolder {
+    public class HangDTViewHolder extends RecyclerView.ViewHolder {
         TextView Name;
         ImageView Img;
         TextView gia;
         CheckBox cb_topping;
+
         public HangDTViewHolder(@NonNull View itemView) {
             super(itemView);
             Img = (ImageView) itemView.findViewById(R.id.img_topping);
@@ -88,7 +83,7 @@ public class ToppingAdapterRecyclerview extends RecyclerView.Adapter<ToppingAdap
         }
     }
 
-    public interface OnNoteListener{
+    public interface OnNoteListener {
         void onNoteClick(ToppingModel.Data position);
     }
 }

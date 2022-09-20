@@ -30,6 +30,7 @@ import com.DeliveryFood.lib.Repository.Methods;
 import com.DeliveryFood.lib.retrofitClient;
 import com.deliveryfood.Adapter.ItemFoodAdapterRecyclerview;
 import com.deliveryfood.Adapter.PhotoAdapter;
+import com.deliveryfood.Adapter.ProductAdapterRecyclerview;
 import com.deliveryfood.Adapter.ToppingAdapterRecyclerview;
 import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
@@ -113,6 +114,12 @@ public class Fragment_detail extends Fragment {
 
         anhXa();
         GetToppingList();
+        try {
+            Thread.sleep(200);
+
+        } catch (Exception e) {
+
+        }
         GetSPLienQuan();
         // SPBanChay();
         setImgs(food, inflater);
@@ -131,7 +138,7 @@ public class Fragment_detail extends Fragment {
                     call.enqueue(new Callback<ResultModel>() {
                         @Override
                         public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
-                        response.code();
+                            response.code();
                         }
 
                         @Override
@@ -158,17 +165,34 @@ public class Fragment_detail extends Fragment {
         Methods methods = retrofitClient.getRetrofit().create(Methods.class);
         Category temp = new Category();
         temp.setID_Category(food.getID_Category());
+        temp.setDescription("");
+        temp.setName_Category("");
+        temp.setPicture("");
         Call<FoodModel> call = methods.getFoodByCategory(temp);
         call.enqueue(new Callback<FoodModel>() {
             @Override
             public void onResponse(Call<FoodModel> call, Response<FoodModel> response) {
 
-                ItemFoodAdapterRecyclerview categoryApdapter =
-                        new ItemFoodAdapterRecyclerview(getContext(), R.layout.item_product,
-                                response.body().getData(), new ItemFoodAdapterRecyclerview.OnNoteListener() {
+//                ItemFoodAdapterRecyclerview categoryApdapter =
+//                        new ItemFoodAdapterRecyclerview(getContext(), R.layout.item_product,
+//                                response.body().getData(), new ItemFoodAdapterRecyclerview.OnNoteListener() {
+//                            @Override
+//                            public void onNoteClick(FoodModel.Data position) {
+//                                chuyenData(position);
+//                            }
+//                        }
+//                        );
+//                categoryApdapter.setList(response.body().getData());
+//                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+//                list_SP_LienQuan.setLayoutManager(gridLayoutManager);
+//                list_SP_LienQuan.setAdapter(categoryApdapter);
+
+                ProductAdapterRecyclerview categoryApdapter =
+                        new ProductAdapterRecyclerview(getContext(), R.layout.item_product,
+                                response.body().getData(), new ProductAdapterRecyclerview.OnNoteListener() {
                             @Override
                             public void onNoteClick(FoodModel.Data position) {
-                                chuyenData(position);
+
                             }
                         }
                         );
@@ -176,6 +200,8 @@ public class Fragment_detail extends Fragment {
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
                 list_SP_LienQuan.setLayoutManager(gridLayoutManager);
                 list_SP_LienQuan.setAdapter(categoryApdapter);
+
+
             }
 
             @Override
@@ -201,6 +227,7 @@ public class Fragment_detail extends Fragment {
                 list_Toping.setLayoutManager(linearLayoutManager);
                 list_Toping.setAdapter(categoryApdapter);
             }
+
             @Override
             public void onFailure(Call<ToppingModel> call, Throwable t) {
 
@@ -223,7 +250,7 @@ public class Fragment_detail extends Fragment {
         List<Cart> cartItems = mainActivity.cartItems;
         for (int i = 0; i < cartItems.size(); i++) {
             Cart item = cartItems.get(i);
-            if (item.getID_Food().equals(cartItem.getID_Food()))
+            if (item.getID_Food() == (cartItem.getID_Food()))
                 return true;
         }
         return false;
@@ -276,7 +303,7 @@ public class Fragment_detail extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
                 fragmentTransaction.replace(R.id.fragmentContainerView, new CartFragment());
                 fragmentTransaction.addToBackStack("fragment cart ");
@@ -321,11 +348,9 @@ public class Fragment_detail extends Fragment {
 
     private void SetData(FoodModel.Data product_in) {
         Name.setText(product_in.getName_Food());
-        Price.setText(Float.toString((Float) product_in.getPrice()) + " VNĐ");
+        Price.setText(Float.toString((Float) product_in.getPrice()) + " đ");
         description.setText(product_in.getDescription());
     }
-
-
 
 
 }

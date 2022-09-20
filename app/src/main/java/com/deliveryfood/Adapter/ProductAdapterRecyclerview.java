@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ProductAdapterRecyclerview extends RecyclerView.Adapter<ProductAdapterRecyclerview.HangDTViewHolder>{
+public class ProductAdapterRecyclerview extends RecyclerView.Adapter<ProductAdapterRecyclerview.HangDTViewHolder> {
 
     Context context;
     int layout;
@@ -39,7 +39,7 @@ public class ProductAdapterRecyclerview extends RecyclerView.Adapter<ProductAdap
     @NonNull
     @Override
     public HangDTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
         return new HangDTViewHolder(view);
 
     }
@@ -47,13 +47,12 @@ public class ProductAdapterRecyclerview extends RecyclerView.Adapter<ProductAdap
     @Override
     public void onBindViewHolder(@NonNull HangDTViewHolder holder, int position) {
         FoodModel.Data Food = mListener.get(position);
-        if(Food == null)
+        if (Food == null)
             return;
-        else
-        {
+        else {
             Picasso.get().load(Food.getPicture()).into(holder.Img);
             holder.Name.setText(Food.getName_Food());
-            holder.gia.setText(Integer.toString((int)Food.getPrice()) + "đ");
+            holder.gia.setText(Integer.toString((int) Food.getPrice()) + "đ");
         }
         holder.Rcv_food.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,12 +64,12 @@ public class ProductAdapterRecyclerview extends RecyclerView.Adapter<ProductAdap
 
     @Override
     public int getItemCount() {
-        if(mListener!= null)
+        if (mListener != null)
             return mListener.size();
         return 0;
     }
 
-    public   class  HangDTViewHolder extends RecyclerView.ViewHolder {
+    public class HangDTViewHolder extends RecyclerView.ViewHolder {
         TextView Name;
         ImageView Img;
         TextView MoTa;
@@ -87,7 +86,7 @@ public class ProductAdapterRecyclerview extends RecyclerView.Adapter<ProductAdap
         }
     }
 
-    public interface OnNoteListener{
+    public interface OnNoteListener {
         void onNoteClick(FoodModel.Data position);
     }
 }

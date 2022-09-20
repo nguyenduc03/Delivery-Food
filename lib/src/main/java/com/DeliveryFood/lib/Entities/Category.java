@@ -6,7 +6,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class Category {
-    private String iD_Category;
+    private int iD_Category;
     private String name_Category;
     private String description;
     private String picture;

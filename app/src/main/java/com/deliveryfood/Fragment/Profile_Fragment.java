@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
@@ -77,29 +79,29 @@ public class Profile_Fragment extends Fragment {
         }
     }
 
-    public class views{
-
-        TextView ten;
-        TextView sdt;
-        TextView address;
-        ImageButton btn_chonHinh;
+    public class views {
+        EditText ten;
+        EditText sdt;
+        EditText address;
+        ImageView btn_chonHinh;
         Button btn_save;
         Button btn_dangxuat;
         Button btn_deal;
+        ImageView cover_image;
     }
 
-    public void mapping(views views){
-
-        views.ten  = view.findViewById(R.id.profile_ten);
-        views.sdt  = view.findViewById(R.id.profile_sdt);
-        views.address  = view.findViewById(R.id.profile_Address);
+    public void mapping(views views) {
+        views.ten = view.findViewById(R.id.profile_ten);
+        views.sdt = view.findViewById(R.id.profile_sdt);
+        views.address = view.findViewById(R.id.profile_Address);
         views.btn_chonHinh = view.findViewById(R.id.btn_chonHinh);
         views.btn_save = view.findViewById(R.id.btn_save);
         views.btn_dangxuat = view.findViewById(R.id.btn_logout);
-        views.btn_deal= view.findViewById(R.id.btn_deal);
+        views.btn_deal = view.findViewById(R.id.btn_deal);
+        views.cover_image = view.findViewById(R.id.cover_image);
     }
 
-    public void saveInfo(views views){
+    public void saveInfo(views views) {
         views.btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,8 +122,7 @@ public class Profile_Fragment extends Fragment {
         call.enqueue(new Callback<ResultModel>() {
             @Override
             public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
-                if (response.body().isStatus())
-                {
+                if (response.body().isStatus()) {
                     mainActivity.taiKhoan.data.setAddress(temp.getAddress());
                     mainActivity.taiKhoan.data.setAvatar(temp.getAvatar());
                     mainActivity.taiKhoan.data.setName(temp.getName());
@@ -138,7 +139,7 @@ public class Profile_Fragment extends Fragment {
 
     }
 
-    public void SignOut(views views){
+    public void SignOut(views views) {
         views.btn_dangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,28 +151,32 @@ public class Profile_Fragment extends Fragment {
         });
     }
 
-    public void signOutTransform(){
+    public void signOutTransform() {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         Fragment fragment = new DangNhapFragment();
-        fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
-        fragmentTransaction.replace(R.id.fragmentContainerView,fragment);
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
         fragmentTransaction.addToBackStack("Fragment home");
         fragmentTransaction.commit();
     }
 
-    public void setData(views views){
+    public void setData(views views) {
         views.ten.setText(user.getData().getName());
         views.sdt.setText(user.getData().getSdt());
         views.address.setText(user.getData().getAddress());
+        Picasso.get().load(user.getData().getAvatar()).into(views.cover_image);
+        Picasso.get().load(user.getData().getAvatar()).into(views.btn_chonHinh);
+
     }
 
-    public void chooseImg(views views){
+    public void chooseImg(views views) {
         views.btn_chonHinh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 permission();
             }
+
             public void Choose_img() {
                 // Show va load hinh trong thu vien
                 TedBottomPicker.with(getActivity())
@@ -189,6 +194,7 @@ public class Profile_Fragment extends Fragment {
                             }
                         });
             }
+
             private void permission() {
                 // xin quyen thu vien anh
                 PermissionListener permissionlistener = new PermissionListener() {
@@ -211,7 +217,7 @@ public class Profile_Fragment extends Fragment {
         });
     }
 
-    public void ShowMessage(){
+    public void ShowMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Hello");
         builder.setTitle("Bạn đã cập nhật thành công");
@@ -235,15 +241,13 @@ public class Profile_Fragment extends Fragment {
         return view;
     }
 
-    public void ShowBill(views views){
+    public void ShowBill(views views) {
         views.btn_deal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
-
-                fragmentTransaction.replace(R.id.fragmentContainerView,new InvoiceFragment());
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
+                fragmentTransaction.replace(R.id.fragmentContainerView, new InvoiceFragment());
                 fragmentTransaction.addToBackStack("Fragment home");
                 fragmentTransaction.commit();
             }

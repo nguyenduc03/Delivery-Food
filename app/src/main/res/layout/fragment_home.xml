@@ -108,8 +108,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
                         android:text="Món ăn mới"
-                        android:textAllCaps="true"
                         android:textColor="@color/black"
+                        android:textStyle="bold"
 
                         android:textSize="25sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -137,13 +137,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:gravity="center"
-
                     android:weightSum="1">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/list_spMoi"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal" />
 
                 </LinearLayout>
@@ -152,11 +153,11 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/ln"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-        android:orientation="vertical">
-
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            >
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -173,8 +174,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Món ăn bán chạy"
-                        android:textAllCaps="true"
                         android:textColor="@color/black"
+                        android:textStyle="bold"
 
                         android:textSize="25sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -199,21 +200,71 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginTop="20dp"
-
-                    android:weightSum="1">
+                    android:layout_marginTop="20dp">
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/list_SP_BanChay1"
                         />
-
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/ln"
 
+            >
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
 
+                android:padding="15dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Món ăn giảm giá sốc"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/btb_XemThem_DC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:text="xem thêm >>>"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/best_sales"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/list_SP_DC"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </ScrollView>

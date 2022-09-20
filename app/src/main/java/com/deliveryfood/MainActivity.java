@@ -31,9 +31,9 @@ import java.util.List;
 import gun0912.tedbottompicker.TedBottomPicker;
 import vn.momo.momo_partner.AppMoMoLib;
 
-public class MainActivity extends AppCompatActivity implements IChuyenData, Serializable{
+public class MainActivity extends AppCompatActivity implements IChuyenData, Serializable {
 
-    public MainActivity(){
+    public MainActivity() {
 
     }
 
@@ -45,14 +45,18 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
     public List<Cart> cartItems;
     public String token;
     public boolean IsGoogle;
+
     public Account getTaiKhoan() {
         return taiKhoan;
     }
-    public     List<FoodModel.Data> listProduct ;
+
+    public List<FoodModel.Data> listProduct;
+
     public List<FoodModel.Data> getListProduct() {
         return this.listProduct;
     }
-    public List<Category> categorylist ;
+
+    public List<Category> categorylist;
 
     public void setListProduct(List<FoodModel.Data> listProduct) {
         this.listProduct = listProduct;
@@ -62,9 +66,10 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
         this.taiKhoan = taiKhoan;
     }
 
-    public MainActivity(Account taiKhoan ){
+    public MainActivity(Account taiKhoan) {
         this.taiKhoan = taiKhoan;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,9 +86,8 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
         fragmentTransaction.addToBackStack("Fragment home");
         fragmentTransaction.commit();
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null)
-        {
-            token =  bundle.getString("jwt");
+        if (bundle != null) {
+            token = bundle.getString("jwt");
             taiKhoan = (Account) bundle.getSerializable("Account");
             IsGoogle = bundle.getBoolean("isGoogle");
             //Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
@@ -110,13 +114,13 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
                         fragment = new fragmentproduct();
                         break;
                     case R.id.menu_nav_user:
-                        if(taiKhoan ==  null)
+                        if (taiKhoan == null)
                             fragment = new fragment_login();
                         else
                             fragment = new Profile_Fragment(taiKhoan);
                         break;
                 }
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                 fragmentTransaction.commit();
@@ -136,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
     }
 
 
-
     @Override
     public void PassDetailBill(Food bill) {
         Bundle bundle = new Bundle();
@@ -151,36 +154,36 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
 
     @Override
     public void ChuyenTongTien(float Tien) {
-       // TextView Text = findViewById(R.id.txt_tongTien);
-      //  Text.setText(Float.toString(Tien));
+        // TextView Text = findViewById(R.id.txt_tongTien);
+        //  Text.setText(Float.toString(Tien));
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,@Nullable  Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
-            if(data != null) {
-                if(data.getIntExtra("status", -1) == 0) {
+        if (requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
+            if (data != null) {
+                if (data.getIntExtra("status", -1) == 0) {
                     //TOKEN IS AVAILABLE
                     ShowMessage("Thành Công");
                     String token = data.getStringExtra("data"); //Token response
                     String phoneNumber = data.getStringExtra("phonenumber");
                     String env = data.getStringExtra("env");
-                    if(env == null){
+                    if (env == null) {
                         env = "app";
                     }
 
-                    if(token != null && !token.equals("")) {
+                    if (token != null && !token.equals("")) {
                         // TODO: send phoneNumber & token to your server side to process payment with MoMo server
                         // IF Momo topup success, continue to process your order
                     } else {
                         ShowMessage("Không thành Công");
                     }
-                } else if(data.getIntExtra("status", -1) == 1) {
+                } else if (data.getIntExtra("status", -1) == 1) {
                     //TOKEN FAIL
-                    String message = data.getStringExtra("message") != null?data.getStringExtra("message"):"Thất bại";
+                    String message = data.getStringExtra("message") != null ? data.getStringExtra("message") : "Thất bại";
                     ShowMessage("Không thành Công");
-                } else if(data.getIntExtra("status", -1) == 2) {
+                } else if (data.getIntExtra("status", -1) == 2) {
                     //TOKEN FAIL
                     ShowMessage("Không thành Công");
                 } else {
@@ -195,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
         }
     }
 
-    public void ShowMessage(String text){
+    public void ShowMessage(String text) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Cám ơn bạn");
         builder.setTitle(text);

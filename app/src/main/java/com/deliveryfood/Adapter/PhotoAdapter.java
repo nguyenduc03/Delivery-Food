@@ -14,7 +14,7 @@ import com.deliveryfood.R;
 
 import java.util.List;
 
-public class PhotoAdapter extends PagerAdapter{
+public class PhotoAdapter extends PagerAdapter {
     private Context mcontext;
     List<String> mListPhoto;
 
@@ -26,28 +26,27 @@ public class PhotoAdapter extends PagerAdapter{
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_photo,container,false);
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_photo, container, false);
         ImageView imgphoto = view.findViewById(R.id.imgphoto);
         String photo = mListPhoto.get(position);
-        if(photo != null)
-        {
+        if (photo != null) {
             Glide.with(mcontext).load(photo).into(imgphoto);
         }
         container.addView(view);
 
-       return  view;
+        return view;
     }
 
     @Override
     public int getCount() {
-        if (mListPhoto!= null)
+        if (mListPhoto != null)
             return mListPhoto.size();
         return 0;
     }
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view== object;
+        return view == object;
     }
 
     @Override

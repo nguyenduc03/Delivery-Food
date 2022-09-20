@@ -7,6 +7,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,13 +33,13 @@ public class CartProductAdapter extends BaseAdapter {
     OnClickListener mListener;
     float TongTien;
 
-    public CartProductAdapter(Context context, int layOut, List<Cart> cartItems, List<FoodModel.Data> Foods,OnClickListener mListener) {
+    public CartProductAdapter(Context context, int layOut, List<Cart> cartItems, List<FoodModel.Data> Foods, OnClickListener mListener) {
         this.context = context;
         this.layOut = layOut;
         this.cartItems = cartItems;
         this.Foods = Foods;
-         this.mListener = mListener;
-        TongTien=0;
+        this.mListener = mListener;
+        TongTien = 0;
     }
 
     @Override
@@ -109,8 +111,8 @@ public class CartProductAdapter extends BaseAdapter {
             viewHolder.Name.setText(food.getName_Food());
             viewHolder.SL.setText(Integer.toString(cartItem.getQuantity()));
             cartItem.setTotal_Money(food.getPrice() * cartItem.getQuantity());
-            viewHolder.gia.setText(Float.toString( cartItem.getTotal_Money()) + " đ");
-            TongTien+=cartItem.getTotal_Money();
+            viewHolder.gia.setText(Float.toString(cartItem.getTotal_Money()) + " đ");
+            TongTien += cartItem.getTotal_Money();
             ChuyenData(TongTien);
             viewHolder.Cart_Product_remove.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -151,11 +153,12 @@ public class CartProductAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+        convertView.startAnimation(animation);
         return convertView;
     }
 
-    private FoodModel.Data getFoodByID(String id_food) {
+    private FoodModel.Data getFoodByID(int id_food) {
         for (FoodModel.Data temp : Foods
         ) {
             if (temp.getID_Food() == id_food)
@@ -166,10 +169,10 @@ public class CartProductAdapter extends BaseAdapter {
 
     private void ChuyenData(float TT) {
 
-        if(TT==0){
+        if (TT == 0) {
             float tt = 0;
-            if(cartItems.size()==0){
-                tt=0;
+            if (cartItems.size() == 0) {
+                tt = 0;
             }
             for (Cart temp : cartItems
             ) {
@@ -178,10 +181,11 @@ public class CartProductAdapter extends BaseAdapter {
             }
             mListener.onClick(tt);
             return;
-        }else
-        mListener.onClick(TT);
+        } else
+            mListener.onClick(TT);
     }
-   public interface OnClickListener {
+
+    public interface OnClickListener {
         void onClick(float data);
     }
 

@@ -72,7 +72,7 @@ public class invoiceDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_invoice_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_invoice_detail, container, false);
         ListView listView = view.findViewById(R.id.invoice_products_list);
         ImageButton btn_back = view.findViewById(R.id.btn_back_invoice_list);
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +98,7 @@ public class invoiceDetailFragment extends Fragment {
                         );
                 listView.setAdapter(detailBillApdapter);
             }
+
             @Override
             public void onFailure(Call<InvoiceDetailModel> call, Throwable t) {
 
@@ -106,10 +107,9 @@ public class invoiceDetailFragment extends Fragment {
         TextView txtDate_invoice = view.findViewById(R.id.Date_invoice);
         txtDate_invoice.setText(bill.getDate_Create());
         TextView TongTien_invoice = view.findViewById(R.id.TongTien_invoice);
-        TongTien_invoice.setText(Float.toString((Float) bill.getTotal_Money())+" VNĐ");
+        TongTien_invoice.setText(Float.toString((Float) bill.getTotal_Money()) + " VNĐ");
         return view;
     }
-
 
 
 }

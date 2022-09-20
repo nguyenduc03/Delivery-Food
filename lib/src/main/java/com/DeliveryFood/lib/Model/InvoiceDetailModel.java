@@ -13,8 +13,8 @@ public class InvoiceDetailModel {
     @Data
     @ToString
     public class obj {
-        private String iD_invoice;
-        private String iD_Food;
+        private int iD_invoice;
+        private int iD_Food;
         private int quantity;
         private Float unitPrice;
         private Float amount;

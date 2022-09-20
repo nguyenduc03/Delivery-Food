@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -66,9 +68,11 @@ public class ProductAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         FoodModel.Data product = products.get(position);
-        viewHolder.gia.setText(Float.toString((float) product.getPrice())+" đ");
+        viewHolder.gia.setText(Float.toString((float) product.getPrice()) + " đ");
         viewHolder.Name.setText(product.getName_Food());
         Picasso.get().load(product.getPicture()).into(viewHolder.Img);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+        convertView.startAnimation(animation);
         return convertView;
     }
 

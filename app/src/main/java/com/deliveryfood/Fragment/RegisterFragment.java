@@ -32,10 +32,11 @@ public class RegisterFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
-    TextView  name, phone , email,address;
+    TextView name, phone, email, address;
     EditText password;
     Button btn_go_DangNhap;
     private View result;
+
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -70,7 +71,8 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        result = inflater.inflate(R.layout.fragment_register, container, false);;
+        result = inflater.inflate(R.layout.fragment_register, container, false);
+        ;
         anhxa();
         Button btn = result.findViewById(R.id.dangki);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +87,7 @@ public class RegisterFragment extends Fragment {
             public void onClick(View view) {
                 Fragment fragment = new fragment_login();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                 fragmentTransaction.addToBackStack("Fragment home");
@@ -93,10 +95,10 @@ public class RegisterFragment extends Fragment {
             }
         });
         // Inflate the layout for this fragment
-        return result ;
+        return result;
     }
 
-    public void anhxa(){
+    public void anhxa() {
         password = result.findViewById(R.id.password);
         name = result.findViewById(R.id.fullname);
         phone = result.findViewById(R.id.phone);
@@ -110,19 +112,19 @@ public class RegisterFragment extends Fragment {
         System.out.println(password.getText().toString().trim());
         AccountInsertModel Account = new AccountInsertModel();
 
-        Account.setName( name.getText().toString());
+        Account.setName(name.getText().toString());
         Account.setPassword(password.getText().toString());
         Account.setSDT(phone.getText().toString());
         Call<String> call = methods.GetCode(Account);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                 }
-                Fragment fragment = new ConfimFragment(Account,response.body());
+                Fragment fragment = new ConfimFragment(Account, response.body());
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                 fragmentTransaction.addToBackStack("Fragment home");

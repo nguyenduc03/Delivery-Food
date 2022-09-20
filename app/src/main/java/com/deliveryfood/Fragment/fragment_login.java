@@ -46,18 +46,20 @@ public class fragment_login extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button btn_dn ;
+    private Button btn_dn;
     private IChuyenData iChuyenData;
-    private View view ;
+    private View view;
     private EditText dn_UserName;
     private EditText dn_Password;
     Button btn_go_DangKi;
     public Account loginAccount;
     GoogleSignInClient mGoogleSignInClient;
-    int RC_SIGN_IN =001;
+    int RC_SIGN_IN = 001;
+
     public fragment_login() {
 
     }
+
     public static fragment_login newInstance(String param1, String param2) {
         fragment_login fragment = new fragment_login();
         Bundle args = new Bundle();
@@ -80,7 +82,7 @@ public class fragment_login extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_login, container, false);
+        view = inflater.inflate(R.layout.fragment_login, container, false);
         Methods methods = retrofitClient.getRetrofit().create(Methods.class);
         anhXa();
         btn_go_DangKi.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +90,7 @@ public class fragment_login extends Fragment {
             public void onClick(View view) {
                 Fragment fragment = new RegisterFragment();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
                 fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                 fragmentTransaction.addToBackStack("Fragment home");
@@ -102,26 +104,28 @@ public class fragment_login extends Fragment {
                 AccountInsertModel temp = new AccountInsertModel();
                 temp.setSDT(dn_UserName.getText().toString());
                 temp.setPassword(dn_Password.getText().toString());
+                temp.setAddress("");
+                temp.setName("");
+                temp.setAvatar("");
                 Call<Account> call = methods.login(temp);
                 call.enqueue(new Callback<Account>() {
                     @Override
                     public void onResponse(Call<Account> call, Response<Account> response) {
-                        if(response.body().isStatus() ){
-                            loginAccount= response.body();
+                        if (response.body().isStatus()) {
+                            loginAccount = response.body();
                             Fragment fragment = new HomeFragment();
                             MainActivity mainActivity = (MainActivity) getActivity();
                             mainActivity.taiKhoan = (loginAccount);
                             updateCart(loginAccount);
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+                            fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
                             fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
                             fragmentTransaction.addToBackStack("Fragment home");
-                            mainActivity.ChipNavigationBar.setItemSelected(R.id.fragment_home,true);
+                            mainActivity.ChipNavigationBar.setItemSelected(R.id.fragment_home, true);
                             fragmentTransaction.commit();
 
-                        }
-                        else {
+                        } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                             builder.setMessage("Tài khoản không hợp lệ");
                             builder.setTitle("Cảnh báo");
@@ -130,6 +134,7 @@ public class fragment_login extends Fragment {
                             builder.create().show();
                         }
                     }
+
                     @Override
                     public void onFailure(Call<Account> call, Throwable t) {
                         Toast.makeText(getActivity(), t.toString(), Toast.LENGTH_SHORT).show();
@@ -141,7 +146,7 @@ public class fragment_login extends Fragment {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(),gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 //        btn_dnGG.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -181,13 +186,13 @@ public class fragment_login extends Fragment {
 //        });
 //
         return view;
-   }
+    }
 
     private void updateCart(Account loginAccount) {
         MainActivity mainActivity = (MainActivity) getActivity();
         List<Cart> list = mainActivity.cartItems;
-        for (Cart temp:list
-             ) {
+        for (Cart temp : list
+        ) {
             temp.setSDT(loginAccount.getData().getSdt());
         }
 
@@ -198,8 +203,8 @@ public class fragment_login extends Fragment {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void anhXa(){
-        btn_dn=view.findViewById(R.id.btn_dn);
+    private void anhXa() {
+        btn_dn = view.findViewById(R.id.btn_dn);
         iChuyenData = (IChuyenData) getActivity();
         dn_UserName = view.findViewById(R.id.dn_UserName);
         dn_Password = view.findViewById(R.id.dn_Password);

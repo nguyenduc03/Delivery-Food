@@ -66,10 +66,10 @@ public class NonUserProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_non_user_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_non_user_profile, container, false);
         anhXa();
         ChuyenHuong();
-        return  view;
+        return view;
     }
 
     private void ChuyenHuong() {
@@ -77,7 +77,7 @@ public class NonUserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
                 fragmentTransaction.replace(R.id.fragmentContainerView, new RegisterFragment());
                 fragmentTransaction.addToBackStack("Fragment Detail");
@@ -88,7 +88,7 @@ public class NonUserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
                 fragmentTransaction.replace(R.id.fragmentContainerView, new fragment_login());
                 fragmentTransaction.addToBackStack("Fragment Detail");

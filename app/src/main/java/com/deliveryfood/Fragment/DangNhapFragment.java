@@ -69,14 +69,14 @@ public class DangNhapFragment extends Fragment {
 
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         Fragment fragment = new fragment_login();
-        fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
-        fragmentTransaction.replace(R.id.dang_nhap_content,fragment);
+        fragmentTransaction.replace(R.id.dang_nhap_content, fragment);
         fragmentTransaction.addToBackStack("Fragment home");
         fragmentTransaction.commit();
 
         ChipNavigationBar = view.findViewById(R.id.menu_2);
-        ChipNavigationBar.setItemSelected(R.id.menu_dangnhap,true);
+        ChipNavigationBar.setItemSelected(R.id.menu_dangnhap, true);
         MenuClick();
         return view;
 
@@ -88,7 +88,7 @@ public class DangNhapFragment extends Fragment {
             public void onItemSelected(int i) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 Fragment fragment = null;
-                switch (i){
+                switch (i) {
                     case R.id.menu_dangki:
                         fragment = new RegisterFragment();
                         break;
@@ -96,9 +96,9 @@ public class DangNhapFragment extends Fragment {
                         fragment = new fragment_login();
                         break;
                 }
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
-                fragmentTransaction.replace(R.id.dang_nhap_content,fragment);
+                fragmentTransaction.replace(R.id.dang_nhap_content, fragment);
                 fragmentTransaction.addToBackStack("Fragment home");
                 fragmentTransaction.commit();
             }

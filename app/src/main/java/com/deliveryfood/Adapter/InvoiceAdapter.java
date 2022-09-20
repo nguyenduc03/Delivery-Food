@@ -24,7 +24,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.FoodView
     private List<InvoiceModel.Data> list;
     private MainActivity mainActivity;
 
-    public InvoiceAdapter(List<InvoiceModel.Data> list,  MainActivity mainActivity) {
+    public InvoiceAdapter(List<InvoiceModel.Data> list, MainActivity mainActivity) {
         this.list = list;
         this.mainActivity = mainActivity;
     }
@@ -54,10 +54,11 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.FoodView
             }
         });
     }
+
     private void goToDetail(InvoiceModel.Data invoice) {
         FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
         Fragment fragment = new invoiceDetailFragment(invoice);
-        fragmentTransaction.replace(R.id.fragmentContainerView,fragment);
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
         fragmentTransaction.addToBackStack("Fragment invoice");
         fragmentTransaction.commit();
     }

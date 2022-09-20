@@ -58,19 +58,17 @@ public class fragment_home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View temp =  inflater.inflate(R.layout.fragment_home, container, false);
-
+        View temp = inflater.inflate(R.layout.fragment_home, container, false);
 
 
         return temp;
     }
 
     private void ChuyenTrang(int i) {
-        if(i == 1)
-        {
+        if (i == 1) {
 
-        }else {
-            if(i==0){
+        } else {
+            if (i == 0) {
 
             }
         }

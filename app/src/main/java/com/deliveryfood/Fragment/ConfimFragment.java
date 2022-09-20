@@ -40,15 +40,15 @@ public class ConfimFragment extends Fragment {
     private EditText txt_OTP;
     private Button btn_XacNhan;
     public String phone;
-    private  View view;
-    private  int count;
-    private  String token;
-    private ImageButton btn_back_DangKi ;
-    AccountInsertModel Account ;
+    private View view;
+    private int count;
+    private String token;
+    private ImageButton btn_back_DangKi;
+    AccountInsertModel Account;
     String code;
 
-    public ConfimFragment(AccountInsertModel Account,String code) {
-        this.Account= Account;
+    public ConfimFragment(AccountInsertModel Account, String code) {
+        this.Account = Account;
         this.code = code;
     }
 
@@ -62,7 +62,7 @@ public class ConfimFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ConfimFragment newInstance(String param1, String param2, String username) {
-        ConfimFragment fragment = new ConfimFragment(new AccountInsertModel(),username);
+        ConfimFragment fragment = new ConfimFragment(new AccountInsertModel(), username);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -82,15 +82,15 @@ public class ConfimFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view= inflater.inflate(R.layout.fragment_confim, container, false);
+        view = inflater.inflate(R.layout.fragment_confim, container, false);
 
-        count=5;
-        token = "" ; // gán giá trị OTP
+        count = 5;
+        token = ""; // gán giá trị OTP
         AnhXaView();
         btn_XacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Check ();
+                Check();
             }
         });
         btn_back_DangKi.setOnClickListener(new View.OnClickListener() {
@@ -101,11 +101,11 @@ public class ConfimFragment extends Fragment {
             }
         });
         // Inflate the layout for this fragment
-        return  view;
+        return view;
     }
 
     private void AnhXaView() {
-        txt_OTP =view.findViewById(R.id.txt_OTP);
+        txt_OTP = view.findViewById(R.id.txt_OTP);
         btn_XacNhan = view.findViewById(R.id.btn_XacNhan);
         btn_back_DangKi = view.findViewById(R.id.btn_back_DangKi);
 
@@ -113,38 +113,38 @@ public class ConfimFragment extends Fragment {
 
     private void Check() {
 
-            String tmp = txt_OTP.getText().toString();
-            if (code.equals(tmp) ) {
-                Methods methods = retrofitClient.getRetrofit().create(Methods.class);
-                Call<ResultModel> call = methods.signup(Account);
-                call.enqueue(new Callback<ResultModel>() {
-                    @Override
-                    public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
-                        if (response.body().isStatus()) {
-                            Fragment fragment = new fragment_login();
-                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.setCustomAnimations(R.anim.slide_in,R.anim.slide_out,R.anim.slide_in,R.anim.slide_out);
+        String tmp = txt_OTP.getText().toString();
+        if (code.equals(tmp)) {
+            Methods methods = retrofitClient.getRetrofit().create(Methods.class);
+            Call<ResultModel> call = methods.signup(Account);
+            call.enqueue(new Callback<ResultModel>() {
+                @Override
+                public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
+                    if (response.body().isStatus()) {
+                        Fragment fragment = new fragment_login();
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
 
-                            fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                            fragmentTransaction.addToBackStack("Fragment home");
-                            fragmentTransaction.commit();
-                        }
+                        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+                        fragmentTransaction.addToBackStack("Fragment home");
+                        fragmentTransaction.commit();
                     }
-
-                    @Override
-                    public void onFailure(Call<ResultModel> call, Throwable t) {
-
-                    }
-                });
-            } else {
-                if (count > 0)
-                    count--;
-                else {
-                    Toast.makeText(getContext(), "bạn đã nhập quá lần qua", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(getContext(), "Vui lòng kiểm tra lại mã OTP\n Bạn còn " + count + " lần", Toast.LENGTH_SHORT).show();
-                txt_OTP.setText("");
+
+                @Override
+                public void onFailure(Call<ResultModel> call, Throwable t) {
+
+                }
+            });
+        } else {
+            if (count > 0)
+                count--;
+            else {
+                Toast.makeText(getContext(), "bạn đã nhập quá lần qua", Toast.LENGTH_SHORT).show();
             }
+            Toast.makeText(getContext(), "Vui lòng kiểm tra lại mã OTP\n Bạn còn " + count + " lần", Toast.LENGTH_SHORT).show();
+            txt_OTP.setText("");
+        }
 
     }
 }
