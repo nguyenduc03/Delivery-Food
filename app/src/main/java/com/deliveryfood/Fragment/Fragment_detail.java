@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +76,7 @@ public class Fragment_detail extends Fragment {
     RecyclerView list_Toping;
     private IChuyenData iChuyenData;
     private RecyclerView list_SP_BanChay;
+    private ImageView add_food_img;
 
 
     public static Fragment_detail newInstance(String param1, String param2) {
@@ -123,8 +126,12 @@ public class Fragment_detail extends Fragment {
         GetSPLienQuan();
         // SPBanChay();
         setImgs(food, inflater);
+
         SetData(food);
+
         open_cart();
+
+
         detail_btnThemSP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,15 +154,8 @@ public class Fragment_detail extends Fragment {
                         }
                     });
                 }
-                if (mainActivity.cartItems.size() == 0)
-                    mainActivity.cartItems.add(cartItem);
-                else {
-                    if (alreadyExit(cartItem)) {
-                        ShowMessage();
-                    } else
-                        mainActivity.cartItems.add(cartItem);
-                }
-                Toast.makeText(getContext(), "Thêm món ăn thành công", Toast.LENGTH_SHORT);
+                mainActivity.cartItems.add(cartItem);
+
             }
         });
         return view;
@@ -172,27 +172,13 @@ public class Fragment_detail extends Fragment {
         call.enqueue(new Callback<FoodModel>() {
             @Override
             public void onResponse(Call<FoodModel> call, Response<FoodModel> response) {
-
-//                ItemFoodAdapterRecyclerview categoryApdapter =
-//                        new ItemFoodAdapterRecyclerview(getContext(), R.layout.item_product,
-//                                response.body().getData(), new ItemFoodAdapterRecyclerview.OnNoteListener() {
-//                            @Override
-//                            public void onNoteClick(FoodModel.Data position) {
-//                                chuyenData(position);
-//                            }
-//                        }
-//                        );
-//                categoryApdapter.setList(response.body().getData());
-//                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-//                list_SP_LienQuan.setLayoutManager(gridLayoutManager);
-//                list_SP_LienQuan.setAdapter(categoryApdapter);
-
                 ProductAdapterRecyclerview categoryApdapter =
                         new ProductAdapterRecyclerview(getContext(), R.layout.item_product,
                                 response.body().getData(), new ProductAdapterRecyclerview.OnNoteListener() {
                             @Override
                             public void onNoteClick(FoodModel.Data position) {
-
+                                // go to detail
+                                chuyenData (position);
                             }
                         }
                         );
@@ -200,8 +186,6 @@ public class Fragment_detail extends Fragment {
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
                 list_SP_LienQuan.setLayoutManager(gridLayoutManager);
                 list_SP_LienQuan.setAdapter(categoryApdapter);
-
-
             }
 
             @Override
@@ -211,6 +195,8 @@ public class Fragment_detail extends Fragment {
         });
 
     }
+
+    private  List<ToppingModel.Data>  toppings;
 
     private void GetToppingList() {
         Methods methods = retrofitClient.getRetrofit().create(Methods.class);
@@ -222,6 +208,9 @@ public class Fragment_detail extends Fragment {
                 ToppingAdapterRecyclerview categoryApdapter =
                         new ToppingAdapterRecyclerview(getContext(), R.layout.item_product,
                                 response.body().getData());
+                toppings = new ArrayList<ToppingModel.Data>();
+                toppings = response.body().getData();
+
                 categoryApdapter.setList(response.body().getData());
                 GridLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 2);
                 list_Toping.setLayoutManager(linearLayoutManager);
@@ -233,27 +222,6 @@ public class Fragment_detail extends Fragment {
 
             }
         });
-    }
-
-
-    public void ShowMessage() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Thông báo");
-        builder.setTitle("Món ăn đã có trong giỏ hàng");
-        builder.setPositiveButton("OK", null);
-        builder.setCancelable(true);
-        builder.create().show();
-    }
-
-    private boolean alreadyExit(Cart cartItem) {
-        MainActivity mainActivity = (MainActivity) getActivity();
-        List<Cart> cartItems = mainActivity.cartItems;
-        for (int i = 0; i < cartItems.size(); i++) {
-            Cart item = cartItems.get(i);
-            if (item.getID_Food() == (cartItem.getID_Food()))
-                return true;
-        }
-        return false;
     }
 
     private void setImgs(FoodModel.Data p, LayoutInflater inflater) {
@@ -330,7 +298,7 @@ public class Fragment_detail extends Fragment {
         btn_back_product = view.findViewById(R.id.btn_back_product);
         detail_btnThemSP = view.findViewById(R.id.detail_btnThemSP);
         list_SP_LienQuan = view.findViewById(R.id.list_SP_LienQuan);
-
+        add_food_img = view.findViewById(R.id.add_food_img);
 
         this.Name = view.findViewById(R.id.detail_ten);
         this.Price = view.findViewById(R.id.detail_gia);

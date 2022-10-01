@@ -250,7 +250,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="35dp"
@@ -263,8 +263,21 @@
                         android:layout_height="60dp"
                         android:background="@drawable/back_orange"
                         android:text="Thêm vào giỏ hàng"
-                        android:textAllCaps="false" />
-                </LinearLayout>
+                        android:textAllCaps="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                    <ImageView
+                        android:id="@+id/add_food_img"
+                        android:layout_width="180dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/cart2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 

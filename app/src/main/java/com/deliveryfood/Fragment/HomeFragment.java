@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
             temp = "Xin chào buổi tối";
         txt_xinchao.setText(temp);
         if (account != null) {
-            temp += "/n"+account.getData().getName();
+            temp += "\n"+account.getData().getName();
             txt_xinchao.setText(temp);
             if (mainActivity.cartItems.size() > 0) {
                 Methods methods = retrofitClient.getRetrofit().create(Methods.class);
@@ -144,7 +144,6 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<ResultModel> call, Throwable t) {
-
 
                     }
                 });
@@ -160,7 +159,6 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(photoAdapter);
         circleIndicator.setViewPager(viewPager);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
-
         // xem them BC
         Button btn_dkNgay = view.findViewById(R.id.btb_XemThem_BC);
         btn_dkNgay.setOnClickListener(new View.OnClickListener() {
@@ -230,7 +228,8 @@ public class HomeFragment extends Fragment {
                                 temp.getData(), new TopProductAdapter.OnNoteListener() {
                             @Override
                             public void onNoteClick(FoodModel.Data position) {
-
+                                 // GO TO DETAIL
+                                chuyenData(position);
                             }
                         },discountModel
                         );
@@ -286,6 +285,7 @@ public class HomeFragment extends Fragment {
     public void chuyenData(FoodModel.Data product) {
         iChuyenData.ChuyenData(product);
     }
+
     private void getDiscountPrice() {
         discountModel = new DiscountModel();
         Methods methods = retrofitClient.getRetrofit().create(Methods.class);

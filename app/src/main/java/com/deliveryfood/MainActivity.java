@@ -16,6 +16,7 @@ import com.DeliveryFood.lib.Entities.Food;
 import com.DeliveryFood.lib.Interface.IChuyenData;
 import com.DeliveryFood.lib.Model.Account;
 import com.DeliveryFood.lib.Model.FoodModel;
+import com.DeliveryFood.lib.Model.ToppingModel;
 import com.deliveryfood.Fragment.CartFragment;
 import com.deliveryfood.Fragment.Fragment_detail;
 import com.deliveryfood.Fragment.HomeFragment;
@@ -46,6 +47,15 @@ public class MainActivity extends AppCompatActivity implements IChuyenData, Seri
     public String token;
     public boolean IsGoogle;
 
+    public List<ToppingModel.Data> getToppings() {
+        return toppings;
+    }
+
+    public void setToppings(List<ToppingModel.Data> toppings) {
+        this.toppings = toppings;
+    }
+
+    protected List<ToppingModel.Data> toppings;
     public Account getTaiKhoan() {
         return taiKhoan;
     }
