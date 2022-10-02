@@ -5,13 +5,16 @@
       <map>
         <entry key="..\:/Delivery-Food/app/src/main/res/drawable-v24/back_sanpham.xml" value="0.161" />
         <entry key="..\:/Delivery-Food/app/src/main/res/drawable/back_cycle.xml" value="0.1755" />
-        <entry key="..\:/Delivery-Food/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Delivery-Food/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/cart_product.xml" value="0.25" />
+        <entry key="..\:/Delivery-Food/app/src/main/res/layout/fragment_buy_with_friend.xml" value="0.264" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/fragment_cart.xml" value="0.25" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/fragment_detail.xml" value="0.2" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/fragment_home.xml" value="0.24615384615384617" />
+        <entry key="..\:/Delivery-Food/app/src/main/res/layout/fragment_my_q_r.xml" value="0.25" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/fragment_products.xml" value="0.25" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Delivery-Food/app/src/main/res/layout/fragment_scan.xml" value="0.21197916666666666" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/item_bsales.xml" value="0.536" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/item_invoice.xml" value="0.1671875" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/item_loading.xml" value="0.24895833333333334" />
@@ -19,6 +22,10 @@
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/item_product.xml" value="0.25" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/item_topping.xml" value="0.25" />
         <entry key="..\:/Delivery-Food/app/src/main/res/layout/item_topping_cart.xml" value="0.25" />
+        <entry key="..\:/Delivery-Food/app/src/main/res/menu/menu_Scan.xml" value="0.25" />
+        <entry key="..\:/Delivery-Food/app/src/main/res/menu/menu_dangnhap1.xml" value="0.25" />
+        <entry key="..\:/Delivery-Food/app/src/main/res/menu/menu_nav.xml" value="0.25" />
+        <entry key="..\:/Delivery-Food/app/src/main/res/menu/menu_scan.xml" value="0.26197916666666665" />
         <entry key="..\:/Users/Saau_/Desktop/Delivery-Food/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Saau_/Desktop/Delivery-Food/app/src/main/res/layout/fragment_home.xml" value="0.225" />
         <entry key="..\:/Users/Saau_/Desktop/Delivery-Food/app/src/main/res/layout/fragment_register.xml" value="0.2203125" />
