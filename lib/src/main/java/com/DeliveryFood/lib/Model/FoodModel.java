@@ -19,10 +19,11 @@ public class FoodModel {
         private String dateAdd;
         private String description;
         private String picture;
-        private int iD_Discount;
         private float price;
         private double rating;
         private boolean Available;
+        private int percenDiscount;
+
 
     }
 }

@@ -15,6 +15,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.DeliveryFood.lib.Entities.Cart;
 import com.DeliveryFood.lib.Interface.ChuyenTien;
 import com.DeliveryFood.lib.Model.FoodModel;
@@ -64,6 +67,8 @@ public class CartProductAdapter extends BaseAdapter {
         ImageButton Cart_Product_btnTru;
         ImageButton Cart_Product_btnCong;
         ImageButton Cart_Product_remove;
+        RecyclerView list_Topping ;
+        TextView text_topping;
         EditText SL;
     }
 
@@ -78,10 +83,28 @@ public class CartProductAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(layOut, null);
+
             viewHolder.Img = (ImageView) convertView.findViewById(R.id.Cart_Product_IMG);
             viewHolder.gia = (TextView) convertView.findViewById(R.id.Cart_Product_price);
             viewHolder.Name = (TextView) convertView.findViewById(R.id.Cart_Product_Name);
+            viewHolder.text_topping = convertView.findViewById(R.id.text_topping);
             viewHolder.SL = (EditText) convertView.findViewById(R.id.Cart_Product_SL);
+            viewHolder.list_Topping = convertView.findViewById(R.id.list_Topping);
+            viewHolder.Cart_Product_btnTru = convertView.findViewById(R.id.Cart_Product_btnTru);
+            viewHolder.Cart_Product_btnCong = convertView.findViewById(R.id.Cart_Product_btnCong);
+            viewHolder.Cart_Product_remove = convertView.findViewById(R.id.Cart_Product_remove);
+            if(cartItem.getToppings().isEmpty()){
+                viewHolder.text_topping.setVisibility(View.GONE);
+            }
+            else
+            {
+                // set list toppings
+                ToppingCartAdapter toppingCartAdapter = new ToppingCartAdapter(context,R.layout.item_topping_cart,cartItem.getToppings());
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+                viewHolder.list_Topping.setLayoutManager(gridLayoutManager);
+                viewHolder.list_Topping.setAdapter(toppingCartAdapter);
+               // viewHolder.list_Topping.
+            }
             viewHolder.SL.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -103,10 +126,8 @@ public class CartProductAdapter extends BaseAdapter {
 
                 }
             });
-            viewHolder.Cart_Product_btnTru = convertView.findViewById(R.id.Cart_Product_btnTru);
-            viewHolder.Cart_Product_btnCong = convertView.findViewById(R.id.Cart_Product_btnCong);
-            viewHolder.Cart_Product_remove = convertView.findViewById(R.id.Cart_Product_remove);
             convertView.setTag(viewHolder);
+
             Picasso.get().load(food.getPicture()).into(viewHolder.Img);
             viewHolder.Name.setText(food.getName_Food());
             viewHolder.SL.setText(Integer.toString(cartItem.getQuantity()));

@@ -12,28 +12,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txt_xinchao"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imgSun"
+            android:layout_width="100dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:layout_height="100dp"
+            android:src="@drawable/morning"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginLeft="20dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:cardCornerRadius="60dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/morning"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/txtXinChao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:padding="10dp"
             android:text="Xin chào bạn"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgSun"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/txt_input"
+            android:id="@+id/txtTimKiem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Nhập thông tin sản phẩm"
             app:layout_constraintEnd_toStartOf="@+id/button_find"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_xinchao" />
+            app:layout_constraintTop_toBottomOf="@+id/txtXinChao" />
 
         <ImageButton
             android:id="@+id/button_find"
@@ -43,11 +72,11 @@
             android:padding="7dp"
             android:scaleType="fitCenter"
             android:src="@drawable/search"
-            app:layout_constraintEnd_toStartOf="@+id/product_btn_cart"
-            app:layout_constraintTop_toTopOf="@+id/txt_input" />
+            app:layout_constraintEnd_toStartOf="@+id/btnCart"
+            app:layout_constraintTop_toTopOf="@+id/txtTimKiem" />
 
         <ImageButton
-            android:id="@+id/product_btn_cart"
+            android:id="@+id/btnCart"
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:layout_marginEnd="25dp"
@@ -56,7 +85,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/buy"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txt_input" />
+            app:layout_constraintTop_toTopOf="@+id/txtTimKiem" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,10 +93,10 @@
             android:layout_width="match_parent"
             android:layout_height="230dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_input">
+            app:layout_constraintTop_toBottomOf="@+id/txtTimKiem">
 
             <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager_home"
+                android:id="@+id/viewPagerSuKien"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="fitCenter"
@@ -81,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewPager_home" />
+                app:layout_constraintTop_toBottomOf="@+id/viewPagerSuKien" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
@@ -116,7 +145,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
-                        android:id="@+id/btb_XemThem_SPMoi"
+                        android:id="@+id/btnXemThemSPMoi"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -140,7 +169,7 @@
                     android:weightSum="1">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/list_spMoi"
+                        android:id="@+id/listSPMoi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -182,7 +211,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
-                        android:id="@+id/btb_XemThem_BC"
+                        android:id="@+id/btnXemThemBC"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -204,7 +233,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/list_SP_BanChay1"
+                        android:id="@+id/bestSaleFoods"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -261,7 +290,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/list_SP_DC"
+                        android:id="@+id/discountFoods"
                         />
                 </LinearLayout>
             </LinearLayout>

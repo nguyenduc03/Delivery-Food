@@ -138,6 +138,9 @@ public class Fragment_detail extends Fragment {
                 Cart cartItem = new Cart();
                 cartItem.setID_Food(food.getID_Food());
                 cartItem.setQuantity(Integer.parseInt(detail_sl.getText().toString()));
+                // add list toppings
+                cartItem.setToppings(mainActivity.getToppings());
+
                 if (mainActivity.getTaiKhoan() != null) {
                     cartItem.setSDT(mainActivity.getTaiKhoan().getData().getSdt());
                     Methods methods = retrofitClient.getRetrofit().create(Methods.class);

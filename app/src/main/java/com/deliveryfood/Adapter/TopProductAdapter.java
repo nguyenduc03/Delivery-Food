@@ -35,16 +35,13 @@ public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.Ha
     int layout;
     private List<FoodModel.Data> mListener;
     OnNoteListener onclink;
-    private DiscountModel Discount;
-    private int percent = 0;
 
 
-    public TopProductAdapter(Context context, int layout, List<FoodModel.Data> mListener, OnNoteListener onclink,DiscountModel discount) {
+    public TopProductAdapter(Context context, int layout, List<FoodModel.Data> mListener, OnNoteListener onclink) {
         this.context = context;
         this.layout = layout;
         this.mListener = mListener;
         this.onclink = onclink;
-        Discount=discount;
     }
 
     public void setList(List<FoodModel.Data> mListener) {
@@ -63,7 +60,8 @@ public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.Ha
     @Override
     public void onBindViewHolder(@NonNull HangDTViewHolder holder, int position) {
         FoodModel.Data Food = mListener.get(position);
-         float price = getDiscountPrice(Food);
+
+         float price = Food.getPrice() - (Food.getPrice() * Food.getPercenDiscount()/100);
         if (Food == null)
             return;
         else {
@@ -76,7 +74,7 @@ public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.Ha
             } else if (price < Food.getPrice()) {
                 // gắn giá và % giảm giá
                 holder.ItemDiscount.setVisibility(View.VISIBLE);
-                holder.percent_Discount.setText(Integer.toString(percent)+"%");
+                holder.percent_Discount.setText(Integer.toString(Food.getPercenDiscount())+"%");
                 holder.oldPrice.setVisibility(View.VISIBLE);
                 SpannableString noidungspanned = new SpannableString(OldPrice);
                 noidungspanned.setSpan(new StrikethroughSpan(), 0, noidungspanned.length(), 0);
@@ -93,19 +91,7 @@ public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.Ha
             }
         });
     }
-    private float getDiscountPrice(FoodModel.Data food) {
 
-        for (DiscountModel.Data item: Discount.getData()
-             ) {
-            if (food.getID_Discount() == item.getID_Discount())
-            {
-                percent = item.getPercent();
-                break;
-            }
-        }
-        float price = food.getPrice() - (food.getPrice() * percent/100);
-        return price;
-    }
 
     private  String ConvertPrice (float price ){
         int Intprice=(int) price;

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,13 +58,17 @@ public class HomeFragment extends Fragment {
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
     private PhotoAdapter photoAdapter;
-    RecyclerView recyclerView;
-    private TextView txt_xinchao;
+    private RecyclerView recyclerView;
+    private TextView txtXinChao;
     private MainActivity mainActivity;
-    RecyclerView list_SP_BanChay1;
+    private RecyclerView bestSaleFoods;
     private Account account;
+    private ImageView imgSun;
     private IChuyenData iChuyenData;
-    private  DiscountModel discountModel;
+    private Button btnXemThemSPMoi;
+    private Button btnXemThemBC;
+    private RecyclerView discountFoods;
+    private ImageButton btnCart;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -106,37 +111,114 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mainActivity = (MainActivity) getActivity();
-        account = mainActivity.getTaiKhoan();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        viewPager = view.findViewById(R.id.viewPager_home);
-        circleIndicator = view.findViewById(R.id.CircleIndicator_home);
-        recyclerView = view.findViewById(R.id.list_spMoi);
-        list_SP_BanChay1 = view.findViewById(R.id.list_SP_BanChay1);
-        txt_xinchao = view.findViewById(R.id.txt_xinchao);
-        getDiscountPrice();
+        InitData(view);
+        loadData(inflater.getContext());
+        OnClick();
+        return view;
+    }
+
+    private void OnClick() {
+        btnXemThemBC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new DangNhapFragment();
+                goToFragment(fragment, R.id.menu_nav_user);
+
+            }
+        });
+
+        btnXemThemSPMoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new fragmentproduct();
+                goToFragment(fragment, R.id.menu_nav_buy);
+            }
+        });
+
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new CartFragment();
+                goToFragment(fragment, R.id.menu_nav_buy);
+            }
+        });
+    }
+
+    private void goToFragment(Fragment fragment, int menu_nav_buy) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+        fragmentTransaction.addToBackStack("Fragment home");
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.ChipNavigationBar.setItemSelected(menu_nav_buy, true);
+        fragmentTransaction.commit();
+    }
+
+    private void loadData(Context context) {
+        LoadviewPager(context);
+        LoadNewFoods();
         try {
             Thread.sleep(200);
         } catch (Exception e) {
         }
-        String temp = "";
+        LoadBestFoods();
+        try {
+            Thread.sleep(200);
+        } catch (Exception e) {
+        }
+        LoadBestDiscountFoods();
+    }
+
+    private void setLoiChao() {
+        String LoiChao = "";
         int Hour = LocalTime.now().getHour();
         if (Hour >= 4 && Hour < 11)
-            temp = "Xin chào buổi sáng";
+            LoiChao = "Xin chào buổi sáng";
         else if (Hour >= 11 && Hour <= 12)
-            temp = "Xin chào buổi trưa";
+            LoiChao = "Xin chào buổi trưa";
         else if (Hour > 12 && Hour < 18)
-            temp = "Xin chào buổi chiều";
-        else
-            temp = "Xin chào buổi tối";
-        txt_xinchao.setText(temp);
+            LoiChao = "Xin chào buổi chiều";
+        else {
+            LoiChao = "Xin chào buổi tối";
+            imgSun.setImageResource(R.drawable.night);
+        }
+        if (account != null)
+            LoiChao += "\n" + account.getData().getName();
+        txtXinChao.setText(LoiChao);
+    }
+
+    private void LoadviewPager(Context context) {
+        List<String> photo = new ArrayList<>();
+        photo.add("https://res.cloudinary.com/dtri2001/image/upload/v1654576417/IMG/Milk%20tea/payment_c0silj.jpg");
+        photo.add("https://res.cloudinary.com/dtri2001/image/upload/v1654576416/IMG/Milk%20tea/maps_wp2wjg.png");
+        photoAdapter = new PhotoAdapter(context, photo);
+        viewPager.setAdapter(photoAdapter);
+        circleIndicator.setViewPager(viewPager);
+        photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
+    }
+
+    private void InitData(View view) {
+        mainActivity = (MainActivity) getActivity();
+        account = mainActivity.getTaiKhoan();
+        viewPager = view.findViewById(R.id.viewPagerSuKien);
+        circleIndicator = view.findViewById(R.id.CircleIndicator_home);
+        recyclerView = view.findViewById(R.id.listSPMoi);
+        imgSun = view.findViewById(R.id.imgSun);
+        btnXemThemBC = view.findViewById(R.id.btnXemThemBC);
+        btnXemThemSPMoi = view.findViewById(R.id.btnXemThemSPMoi);
+        bestSaleFoods = view.findViewById(R.id.bestSaleFoods);
+        txtXinChao = view.findViewById(R.id.txtXinChao);
+        discountFoods = view.findViewById(R.id.discountFoods);
+        btnCart = view.findViewById(R.id.btnCart);
+
+        setLoiChao();
+        // cập nhật giỏ hàng
         if (account != null) {
-            temp += "\n"+account.getData().getName();
-            txt_xinchao.setText(temp);
             if (mainActivity.cartItems.size() > 0) {
                 Methods methods = retrofitClient.getRetrofit().create(Methods.class);
-                Call<ResultModel> call = methods.InsertCart(mainActivity.cartItems);
-                call.enqueue(new Callback<ResultModel>() {
+                Call<ResultModel> callInsertCart = methods.InsertCart(mainActivity.cartItems);
+                callInsertCart.enqueue(new Callback<ResultModel>() {
                     @Override
                     public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
                         response.code();
@@ -147,78 +229,30 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
-
             }
         }
-
-
-        List<String> photo = new ArrayList<>();
-        photo.add("https://res.cloudinary.com/dtri2001/image/upload/v1654576417/IMG/Milk%20tea/payment_c0silj.jpg");
-        photo.add("https://res.cloudinary.com/dtri2001/image/upload/v1654576416/IMG/Milk%20tea/maps_wp2wjg.png");
-        photoAdapter = new PhotoAdapter(inflater.getContext(), photo);
-        viewPager.setAdapter(photoAdapter);
-        circleIndicator.setViewPager(viewPager);
-        photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
-        // xem them BC
-        Button btn_dkNgay = view.findViewById(R.id.btb_XemThem_BC);
-        btn_dkNgay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new DangNhapFragment();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
-
-                fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                fragmentTransaction.addToBackStack("Fragment home");
-
-                mainActivity.ChipNavigationBar.setItemSelected(R.id.menu_nav_user, true);
-                fragmentTransaction.commit();
-            }
-        });
-        // xem them sp moi
-
-        Button btn_chuyen_sanpham = view.findViewById(R.id.btb_XemThem_SPMoi);
-        btn_chuyen_sanpham.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new fragmentproduct();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
-                fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                fragmentTransaction.addToBackStack("Fragment home");
-                MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.ChipNavigationBar.setItemSelected(R.id.menu_nav_buy, true);
-                fragmentTransaction.commit();
-            }
-        });
-
-        ImageButton btn_cart = view.findViewById(R.id.product_btn_cart);
-        btn_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new CartFragment();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
-                fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                fragmentTransaction.addToBackStack("Fragment home");
-                MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.ChipNavigationBar.setItemSelected(R.id.menu_nav_buy, true);
-                fragmentTransaction.commit();
-            }
-        });
-        SPMoi();
-        try {
-            Thread.sleep(200);
-        } catch (Exception e) {
-        }
-        SPBanChay();
-        return view;
     }
 
-    private void SPBanChay() {
+    private void LoadBestDiscountFoods() {
         Methods methods = retrofitClient.getRetrofit().create(Methods.class);
-        Call<FoodModel> callFood = methods.getTopFood();
-        callFood.enqueue(new Callback<FoodModel>() {
+        Call<FoodModel> callTopFoodDiscount = methods.getTopFoodDiscount();
+        callTopFoodDiscount.enqueue(new Callback<FoodModel>() {
+            @Override
+            public void onResponse(Call<FoodModel> call, Response<FoodModel> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<FoodModel> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void LoadBestFoods() {
+        Methods methods = retrofitClient.getRetrofit().create(Methods.class);
+        Call<FoodModel> callTopFoods = methods.getTopFood();
+        callTopFoods.enqueue(new Callback<FoodModel>() {
             @Override
             public void onResponse(Call<FoodModel> call, Response<FoodModel> response) {
                 FoodModel temp = new FoodModel();
@@ -228,15 +262,15 @@ public class HomeFragment extends Fragment {
                                 temp.getData(), new TopProductAdapter.OnNoteListener() {
                             @Override
                             public void onNoteClick(FoodModel.Data position) {
-                                 // GO TO DETAIL
+                                // GO TO DETAIL
                                 chuyenData(position);
                             }
-                        },discountModel
+                        }
                         );
                 categoryApdapter.setList(temp.getData());
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-                list_SP_BanChay1.setLayoutManager(linearLayoutManager);
-                list_SP_BanChay1.setAdapter(categoryApdapter);
+                bestSaleFoods.setLayoutManager(linearLayoutManager);
+                bestSaleFoods.setAdapter(categoryApdapter);
             }
 
             @Override
@@ -247,7 +281,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void SPMoi() {
+    public void LoadNewFoods() {
         Methods methods = retrofitClient.getRetrofit().create(Methods.class);
 //        Call<FoodModel> callCate = methods.getNewFood();
         Call<FoodModel> callCate = methods.getFood();
@@ -275,33 +309,11 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<FoodModel> call, Throwable t) {
-
             }
         });
-
     }
-
 
     public void chuyenData(FoodModel.Data product) {
         iChuyenData.ChuyenData(product);
-    }
-
-    private void getDiscountPrice() {
-        discountModel = new DiscountModel();
-        Methods methods = retrofitClient.getRetrofit().create(Methods.class);
-        Call<DiscountModel> callDiscount = methods.GetDiscount();
-        callDiscount.enqueue(new Callback<DiscountModel>() {
-            @Override
-            public void onResponse(Call<DiscountModel> call, Response<DiscountModel> response) {
-                if (response.body().isStatus()) {
-                    discountModel = response.body();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DiscountModel> call, Throwable t) {
-
-            }
-        });
     }
 }

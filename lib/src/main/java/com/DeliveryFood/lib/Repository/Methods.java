@@ -40,6 +40,10 @@ public interface Methods {
     @POST("api/Cart/insert-food")
     Call<ResultModel> InsertFoodCart(@Body Cart cart);
 
+    @GET("api/Cart/insert-food")
+    Call<FoodModel> getTopFoodDiscount();
+
+
     @GET("api/Food/get-all-food-list")
     Call<FoodModel> getAllFood();
 
