@@ -8,26 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.DeliveryFood.lib.Model.Account;
-import com.DeliveryFood.lib.Model.DiscountModel;
 import com.DeliveryFood.lib.Model.FoodModel;
-import com.DeliveryFood.lib.Repository.Methods;
-import com.DeliveryFood.lib.retrofitClient;
 import com.deliveryfood.R;
+import com.deliveryfood.common.MonneyFormat;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.HangDTViewHolder> {
 
@@ -61,26 +53,26 @@ public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.Ha
     public void onBindViewHolder(@NonNull HangDTViewHolder holder, int position) {
         FoodModel.Data Food = mListener.get(position);
 
-         float price = Food.getPrice() - (Food.getPrice() * Food.getPercenDiscount()/100);
+        float price = Food.getPrice() - (Food.getPrice() * Food.getPercenDiscount() / 100);
         if (Food == null)
             return;
         else {
             Picasso.get().load(Food.getPicture()).into(holder.Img);
             holder.Name.setText(Food.getName_Food());
-            String OldPrice = ConvertPrice( Food.getPrice()) + " đ";
+            String OldPrice = MonneyFormat.formatMonney((long) Food.getPrice()) ;
             if (price == Food.getPrice()) {
                 // ẩn item discount vs ẩn giá discount
                 holder.Price.setText(OldPrice);
             } else if (price < Food.getPrice()) {
                 // gắn giá và % giảm giá
                 holder.ItemDiscount.setVisibility(View.VISIBLE);
-                holder.percent_Discount.setText(Integer.toString(Food.getPercenDiscount())+"%");
+                holder.percent_Discount.setText(Integer.toString(Food.getPercenDiscount()) + "%");
                 holder.oldPrice.setVisibility(View.VISIBLE);
                 SpannableString noidungspanned = new SpannableString(OldPrice);
                 noidungspanned.setSpan(new StrikethroughSpan(), 0, noidungspanned.length(), 0);
                 holder.oldPrice.setMovementMethod(LinkMovementMethod.getInstance());
                 holder.oldPrice.setText(noidungspanned);
-                holder.Price.setText(ConvertPrice(price)+ " đ");
+                holder.Price.setText(MonneyFormat.formatMonney((long) price) );
             }
             holder.Rating.setText(Double.toString((double) Food.getRating()));
         }
@@ -90,25 +82,6 @@ public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.Ha
                 onclink.onNoteClick(Food);
             }
         });
-    }
-
-
-    private  String ConvertPrice (float price ){
-        int Intprice=(int) price;
-        String result = "";
-        while (Intprice>999){
-            int temp = Intprice %1000;
-            if(temp <10)
-                result = ".00"+temp +result;
-            else
-            if(temp<100)
-                result =".0"+ temp +result;
-            else
-            result = "."+temp +result;
-            Intprice = Intprice /1000;
-        }
-        result = Intprice +result;
-        return  result;
     }
 
 

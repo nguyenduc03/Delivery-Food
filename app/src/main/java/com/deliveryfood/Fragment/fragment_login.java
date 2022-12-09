@@ -100,7 +100,6 @@ public class fragment_login extends Fragment {
         btn_dn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 AccountInsertModel temp = new AccountInsertModel();
                 temp.setSDT(dn_UserName.getText().toString());
                 temp.setPassword(dn_Password.getText().toString());

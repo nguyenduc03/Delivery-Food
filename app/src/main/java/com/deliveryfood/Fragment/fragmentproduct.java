@@ -7,9 +7,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,9 +25,7 @@ import com.DeliveryFood.lib.Model.FoodModel;
 import com.DeliveryFood.lib.Repository.Methods;
 import com.DeliveryFood.lib.retrofitClient;
 import com.deliveryfood.Adapter.CategoryApdapter;
-import com.deliveryfood.Adapter.ProductAdapter;
 import com.deliveryfood.Adapter.ProductAdapterRCV;
-import com.deliveryfood.Adapter.ProductAdapterRecyclerview;
 import com.deliveryfood.Adapter.ScrollListener;
 import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
@@ -61,7 +57,6 @@ public class fragmentproduct extends Fragment {
     private ProductAdapterRCV productAdapter;
     private boolean isLoading;
     private boolean isLastPage;
-    private int totalPage = 5;
     private int currentPage = 1;
 
     private String mParam1;
@@ -215,7 +210,7 @@ public class fragmentproduct extends Fragment {
             call.enqueue(new Callback<FoodModel>() {
                 @Override
                 public void onResponse(Call<FoodModel> call, Response<FoodModel> response) {
-                    if (response.body().getStatus().equals("true")) {
+                    if (response.body().isStatus()) {
                         listProduct.addAll(response.body().data);
                         productAdapter.notifyDataSetChanged();
                         isLoading = false;

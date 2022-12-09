@@ -9,10 +9,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.DeliveryFood.lib.Model.FoodModel;
 import com.deliveryfood.R;
+import com.deliveryfood.common.MonneyFormat;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,9 +52,19 @@ public class ProductAdapterRecyclerview extends RecyclerView.Adapter<ProductAdap
         if (Food == null)
             return;
         else {
+            if (Food.getPercenDiscount() == 0) {
+                holder.constraintTemp.setVisibility(View.GONE);
+            } else {
+                holder.constraintTemp.setVisibility(View.VISIBLE);
+                holder.Discount.setText(Food.getPercenDiscount() + "%");
+            }
             Picasso.get().load(Food.getPicture()).into(holder.Img);
             holder.Name.setText(Food.getName_Food());
-            holder.gia.setText(Integer.toString((int) Food.getPrice()) + "đ");
+
+            float gia = Food.getPrice();
+            if (Food.getPercenDiscount() != 0)
+                gia = gia - (Food.getPrice() * Food.getPercenDiscount() / 100);
+            holder.gia.setText(MonneyFormat.formatMonney((long) gia));
         }
         holder.Rcv_food.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +87,8 @@ public class ProductAdapterRecyclerview extends RecyclerView.Adapter<ProductAdap
         TextView MoTa;
         TextView gia;
         LinearLayout Rcv_food;
+        TextView Discount;
+        ConstraintLayout constraintTemp;
 
         public HangDTViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,6 +96,8 @@ public class ProductAdapterRecyclerview extends RecyclerView.Adapter<ProductAdap
             gia = (TextView) itemView.findViewById(R.id.gia_sanpham);
             Name = (TextView) itemView.findViewById(R.id.ten_sanpham);
             MoTa = (TextView) itemView.findViewById(R.id.mota_sanpham);
+            Discount = itemView.findViewById(R.id.Discount);
+            constraintTemp = itemView.findViewById(R.id.constraintTemp);
             Rcv_food = itemView.findViewById(R.id.Rcv_food);
         }
     }

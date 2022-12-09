@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.DeliveryFood.lib.Model.ToppingModel;
 import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
+import com.deliveryfood.common.MonneyFormat;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class ToppingAdapterRecyclerview extends RecyclerView.Adapter<ToppingAdap
         this.context = context;
         this.layout = layout;
         this.List = List;
-        toppings= new ArrayList<ToppingModel.Data>();
+        toppings = new ArrayList<ToppingModel.Data>();
     }
 
     public void setList(List<ToppingModel.Data> List) {
@@ -50,30 +52,30 @@ public class ToppingAdapterRecyclerview extends RecyclerView.Adapter<ToppingAdap
     @Override
     public void onBindViewHolder(@NonNull HangDTViewHolder holder, int position) {
         ToppingModel.Data Topping = List.get(position);
-        if(toppings.contains(Topping))
-            holder.cb_topping.setChecked(true);
+        MainActivity mainActivity = (MainActivity) context;
+        if (toppings.contains(Topping))
+            holder.checkBox.setChecked(true);
 
         if (Topping == null)
             return;
         else {
             Picasso.get().load(Topping.getImg()).into(holder.Img);
             holder.Name.setText(Topping.getName_Topping());
-            holder.gia.setText(Float.toString((float) Topping.getPrice()));
+            holder.gia.setText(MonneyFormat.formatMonney((long) Topping.getPrice()));
         }
-        holder.itemView.setOnClickListener(view -> {
-            List.get(position);
-            MainActivity mainActivity = (MainActivity)context;
 
-            if (holder.cb_topping.isChecked()) {
-                holder.cb_topping.setChecked(false);
-                toppings.remove( List.get(position));
+        holder.item_topping.setOnClickListener(view -> {
+            if (holder.checkBox.isChecked()) {
+                holder.checkBox.setChecked(false);
+                toppings.remove(List.get(position));
                 mainActivity.setToppings(toppings);
             } else {
-                holder.cb_topping.setChecked(true);
+                holder.checkBox.setChecked(true);
                 toppings.add(List.get(position));
                 mainActivity.setToppings(toppings);
             }
         });
+
     }
 
     @Override
@@ -87,14 +89,18 @@ public class ToppingAdapterRecyclerview extends RecyclerView.Adapter<ToppingAdap
         TextView Name;
         ImageView Img;
         TextView gia;
-        CheckBox cb_topping;
+        LinearLayout item_topping;
+        CheckBox checkBox;
+
 
         public HangDTViewHolder(@NonNull View itemView) {
             super(itemView);
             Img = (ImageView) itemView.findViewById(R.id.img_topping);
             gia = (TextView) itemView.findViewById(R.id.txt_PriceTopping);
             Name = (TextView) itemView.findViewById(R.id.txt_NameTopping);
-            cb_topping = itemView.findViewById(R.id.cb_topping);
+            item_topping = itemView.findViewById(R.id.item_topping);
+            checkBox = itemView.findViewById(R.id.cb_topping);
+
         }
     }
 }

@@ -6,24 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.BuyWithFriendFragment">
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="70dp"
-        app:layout_constraintBottom_toTopOf="@+id/chipNavigationBar"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/btnBack"
+        android:layout_marginLeft="20dp"
+        android:layout_height="40dp"
+        android:background="@drawable/back_btn_xam"
+        android:scaleType="fitXY"
+        android:src="@drawable/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
-        android:id="@+id/chipNavigationBar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:cnb_menuResource="@menu/menu_scan"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <FrameLayout
+            android:id="@+id/ContainerView"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/menuQR" />
+
+        <com.ismaeldivita.chipnavigation.ChipNavigationBar
+            android:id="@+id/menuQR"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:background="@drawable/back_menu2"
+            app:cnb_menuResource="@menu/menu_scan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

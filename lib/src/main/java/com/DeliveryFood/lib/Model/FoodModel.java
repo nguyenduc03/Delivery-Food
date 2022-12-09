@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class FoodModel {
 
-    private String status;
+    private boolean status;
     public List<Data> data;
 
     @lombok.Data

@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -118,7 +116,7 @@ public class Profile_Fragment extends Fragment {
         temp.setAddress(views.address.getText().toString());
         temp.setAvatar(user.getData().getAvatar());
         MainActivity mainActivity = (MainActivity) getActivity();
-        Call<ResultModel> call = methods.UpdateAccount(temp);
+        Call<ResultModel> call = methods.UpdateAccount(temp,"Bearer "+mainActivity.jwt.getToken());
         call.enqueue(new Callback<ResultModel>() {
             @Override
             public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {

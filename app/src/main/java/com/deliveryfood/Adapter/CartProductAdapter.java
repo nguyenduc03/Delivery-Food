@@ -22,6 +22,7 @@ import com.DeliveryFood.lib.Entities.Cart;
 import com.DeliveryFood.lib.Interface.ChuyenTien;
 import com.DeliveryFood.lib.Model.FoodModel;
 import com.deliveryfood.R;
+import com.deliveryfood.common.MonneyFormat;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -67,7 +68,7 @@ public class CartProductAdapter extends BaseAdapter {
         ImageButton Cart_Product_btnTru;
         ImageButton Cart_Product_btnCong;
         ImageButton Cart_Product_remove;
-        RecyclerView list_Topping ;
+        RecyclerView list_Topping;
         TextView text_topping;
         EditText SL;
     }
@@ -83,7 +84,6 @@ public class CartProductAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(layOut, null);
-
             viewHolder.Img = (ImageView) convertView.findViewById(R.id.Cart_Product_IMG);
             viewHolder.gia = (TextView) convertView.findViewById(R.id.Cart_Product_price);
             viewHolder.Name = (TextView) convertView.findViewById(R.id.Cart_Product_Name);
@@ -93,37 +93,42 @@ public class CartProductAdapter extends BaseAdapter {
             viewHolder.Cart_Product_btnTru = convertView.findViewById(R.id.Cart_Product_btnTru);
             viewHolder.Cart_Product_btnCong = convertView.findViewById(R.id.Cart_Product_btnCong);
             viewHolder.Cart_Product_remove = convertView.findViewById(R.id.Cart_Product_remove);
-            if(cartItem.getToppings().isEmpty()){
+            if (cartItem.getToppings().isEmpty()) {
                 viewHolder.text_topping.setVisibility(View.GONE);
-            }
-            else
-            {
+            } else {
                 // set list toppings
-                ToppingCartAdapter toppingCartAdapter = new ToppingCartAdapter(context,R.layout.item_topping_cart,cartItem.getToppings());
+                ToppingCartAdapter toppingCartAdapter = new ToppingCartAdapter(context, R.layout.item_topping_cart, cartItem.getToppings());
+                toppingCartAdapter.setList(cartItem.getToppings());
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
                 viewHolder.list_Topping.setLayoutManager(gridLayoutManager);
                 viewHolder.list_Topping.setAdapter(toppingCartAdapter);
-               // viewHolder.list_Topping.
             }
             viewHolder.SL.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     cartItem.setQuantity(Integer.parseInt(viewHolder.SL.getText().toString()));
+                    TongTien = food.getPrice() * cartItem.getQuantity();
                     viewHolder.gia.setText(Integer.toString((int) food.getPrice() * cartItem.getQuantity()) + " đ");
+                    ChuyenData(TongTien);
+
                 }
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     cartItem.setQuantity(Integer.parseInt(viewHolder.SL.getText().toString()));
+                    TongTien = food.getPrice() * cartItem.getQuantity();
                     viewHolder.gia.setText(Integer.toString((int) food.getPrice() * cartItem.getQuantity()) + " đ");
+                    ChuyenData(TongTien);
+
 
                 }
 
                 @Override
                 public void afterTextChanged(Editable editable) {
                     cartItem.setQuantity(Integer.parseInt(viewHolder.SL.getText().toString()));
+                    TongTien = food.getPrice() * cartItem.getQuantity();
                     viewHolder.gia.setText(Integer.toString((int) food.getPrice() * cartItem.getQuantity()) + " đ");
-
+                    ChuyenData(TongTien);
                 }
             });
             convertView.setTag(viewHolder);
@@ -131,9 +136,8 @@ public class CartProductAdapter extends BaseAdapter {
             Picasso.get().load(food.getPicture()).into(viewHolder.Img);
             viewHolder.Name.setText(food.getName_Food());
             viewHolder.SL.setText(Integer.toString(cartItem.getQuantity()));
-            cartItem.setTotal_Money(food.getPrice() * cartItem.getQuantity());
-            viewHolder.gia.setText(Float.toString(cartItem.getTotal_Money()) + " đ");
-            TongTien += cartItem.getTotal_Money();
+            TongTien += food.getPrice() * cartItem.getQuantity();
+            viewHolder.gia.setText(MonneyFormat.formatMonney((long) TongTien));
             ChuyenData(TongTien);
             viewHolder.Cart_Product_remove.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -151,9 +155,9 @@ public class CartProductAdapter extends BaseAdapter {
                     count++;
                     viewHolder.SL.setText(Integer.toString(count));
                     cartItem.setQuantity(count);
-                    cartItem.setTotal_Money(getFoodByID(cartItem.getID_Food()).getPrice() * cartItem.getQuantity());
-                    viewHolder.gia.setText(Float.toString(cartItem.getTotal_Money()));
-                    ChuyenData(0);
+                    TongTien = getFoodByID(cartItem.getID_Food()).getPrice() * cartItem.getQuantity();
+                    viewHolder.gia.setText(MonneyFormat.formatMonney((long) TongTien));
+                    ChuyenData(TongTien);
                 }
             });
 
@@ -165,10 +169,10 @@ public class CartProductAdapter extends BaseAdapter {
                         count--;
                         cartItem.setQuantity(count);
                         viewHolder.SL.setText(Integer.toString(count));
-                        cartItem.setTotal_Money(getFoodByID(cartItem.getID_Food()).getPrice() * cartItem.getQuantity());
-                        viewHolder.gia.setText(Float.toString(cartItem.getTotal_Money()));
+                        TongTien = getFoodByID(cartItem.getID_Food()).getPrice() * cartItem.getQuantity();
+                        viewHolder.gia.setText(MonneyFormat.formatMonney((long) getFoodByID(cartItem.getID_Food()).getPrice() * cartItem.getQuantity()));
                     }
-                    ChuyenData(0);
+                    ChuyenData(TongTien);
                 }
             });
         } else {
@@ -189,21 +193,7 @@ public class CartProductAdapter extends BaseAdapter {
     }
 
     private void ChuyenData(float TT) {
-
-        if (TT == 0) {
-            float tt = 0;
-            if (cartItems.size() == 0) {
-                tt = 0;
-            }
-            for (Cart temp : cartItems
-            ) {
-                tt += temp.getTotal_Money();
-
-            }
-            mListener.onClick(tt);
-            return;
-        } else
-            mListener.onClick(TT);
+        mListener.onClick(TongTien);
     }
 
     public interface OnClickListener {

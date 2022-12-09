@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,11 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.DeliveryFood.lib.Model.ToppingModel;
-import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ToppingCartAdapter extends RecyclerView.Adapter<ToppingCartAdapter.HangDTViewHolder> {
@@ -39,7 +36,7 @@ public class ToppingCartAdapter extends RecyclerView.Adapter<ToppingCartAdapter.
     @NonNull
     @Override
     public HangDTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topping, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topping_cart, parent, false);
         return new HangDTViewHolder(view);
     }
 

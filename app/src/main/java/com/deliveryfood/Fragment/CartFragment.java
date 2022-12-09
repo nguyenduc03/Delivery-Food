@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ import com.DeliveryFood.lib.Entities.Cart;
 import com.DeliveryFood.lib.Interface.ChuyenTien;
 import com.DeliveryFood.lib.Interface.IChuyenData;
 import com.DeliveryFood.lib.Model.Account;
+import com.DeliveryFood.lib.Model.DiscountModel;
 import com.DeliveryFood.lib.Model.FoodModel;
 import com.DeliveryFood.lib.Model.ResultModel;
 import com.DeliveryFood.lib.Repository.Methods;
@@ -25,10 +28,12 @@ import com.DeliveryFood.lib.retrofitClient;
 import com.deliveryfood.Adapter.CartProductAdapter;
 import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
+import com.deliveryfood.common.MonneyFormat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,12 +60,13 @@ public class CartFragment extends Fragment implements ChuyenTien {
     ListView cart_list;
     private float TongTien;
     TextView TongTien1;
+    Spinner MaGiamGia;
     Button button;
     public List<Cart> cartItems;
     MainActivity mainActivity;
     private Methods methods;
     IChuyenData iChuyenData;
-    Button TT_Momo;
+    //    Button TT_Momo;
     private String amount = "100000";
     private String fee = "0";
     int environment = 0;//developer default
@@ -101,7 +107,6 @@ public class CartFragment extends Fragment implements ChuyenTien {
             view = inflater.inflate(R.layout.fragment_no_food, container, false);
         else {
             view = inflater.inflate(R.layout.fragment_cart, container, false);
-
             AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
             mainActivity.ChipNavigationBar.setItemSelected(R.id.menu_nav_buy, true);
             AnhXa();
@@ -115,14 +120,29 @@ public class CartFragment extends Fragment implements ChuyenTien {
                             cartItems, mainActivity.listProduct, new CartProductAdapter.OnClickListener() {
                         @Override
                         public void onClick(float data) {
-                            TongTien1.setText(Integer.toString((int) data) + " đ");
+                            TongTien1.setText(MonneyFormat.formatMonney((long) data));
                             TongTien = data;
-
+                            mainActivity.tongTien = TongTien;
                         }
                     }
                     );
             cart_list.setAdapter(adapter);
-
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment fragment;
+                    if (mainActivity.getTaiKhoan() == null) {
+                        fragment = new PaymentParentFragment();
+                    } else {
+                        fragment = new PaymentParentFragment();
+                    }
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
+                    fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+                    fragmentTransaction.addToBackStack("Fragment home");
+                    fragmentTransaction.commit();
+                }
+            });
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,7 +161,7 @@ public class CartFragment extends Fragment implements ChuyenTien {
                         // tien hanh thanh toan
                         Methods methods = retrofitClient.getRetrofit().create(Methods.class);
                         Account account = mainActivity.getTaiKhoan();
-                        Call<ResultModel> call = methods.Payment(account);
+                        Call<ResultModel> call = methods.Payment(account.data,"Bearer "+mainActivity.jwt.getToken());
                         call.enqueue(new Callback<ResultModel>() {
                             @Override
                             public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
@@ -156,6 +176,8 @@ public class CartFragment extends Fragment implements ChuyenTien {
                                             @Override
                                             public void onClick(float data) {
                                                 TongTien = 0;
+                                                mainActivity.tongTien = TongTien;
+
                                             }
                                         }
                                         );
@@ -172,20 +194,49 @@ public class CartFragment extends Fragment implements ChuyenTien {
                 }
             });
 
-            TT_Momo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    requestPayment();
-                }
-            });
+//            TT_Momo.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    requestPayment();
+//                }
+//            });
+
+
         }
+        getDiscount();
+
+
 
         return view;
     }
+    private void getDiscount() {
+        Methods methods = retrofitClient.getRetrofit().create(Methods.class);
+        Call<DiscountModel> callGetDiscout = methods.GetDiscount();
+        callGetDiscout.enqueue(new Callback<DiscountModel>() {
+            @Override
+            public void onResponse(Call<DiscountModel> call, Response<DiscountModel> response) {
+                if (response.body().isStatus()) {
+                    mainActivity.setDiscountModel(response.body());
+                    List<String> Ma = new ArrayList<>();
+                    Ma.add("Chọn mã giảm giá");
+                    for (DiscountModel.Data temp : mainActivity.getDiscountModel().data
+                    ) {
+                        Ma.add(temp.getCode());
+                    }
+                    MaGiamGia.setAdapter(new ArrayAdapter<>(getContext(), com.airbnb.lottie.R.layout.support_simple_spinner_dropdown_item, Ma));
+                }
+            }
 
+
+            @Override
+            public void onFailure(Call<DiscountModel> call, Throwable t) {
+
+            }
+        });
+    }
     private void UpdateCart() {
         Methods methods = retrofitClient.getRetrofit().create(Methods.class);
-        Call<ResultModel> call = methods.InsertCart(mainActivity.cartItems);
+        Call<ResultModel> call = methods.InsertCart(mainActivity.cartItems, "Bearer " + mainActivity.jwt.getToken());
         call.enqueue(new Callback<ResultModel>() {
             @Override
             public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
@@ -242,12 +293,13 @@ public class CartFragment extends Fragment implements ChuyenTien {
 
 
     private void AnhXa() {
-        TT_Momo = view.findViewById(R.id.TT_Momo);
+//        TT_Momo = view.findViewById(R.id.TT_Momo);
         methods = retrofitClient.getRetrofit().create(Methods.class);
         btn_back_product = view.findViewById(R.id.btn_back_product);
         TongTien1 = view.findViewById(R.id.TongTien);
         cart_list = view.findViewById(R.id.cart_list);
         button = view.findViewById(R.id.checkout);
+        MaGiamGia = view.findViewById(R.id.MaGiamGia);
         btn_back_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -17,7 +17,7 @@ public class Data{
     private String iD_invoice;
     private String iD_Discount;
     private String sdt;
-    private Float total_Money;
+    private float total_Money;
     private String date_Create;
 
 }

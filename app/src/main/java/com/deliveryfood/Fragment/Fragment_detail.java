@@ -1,12 +1,10 @@
 package com.deliveryfood.Fragment;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,12 +28,12 @@ import com.DeliveryFood.lib.Model.ResultModel;
 import com.DeliveryFood.lib.Model.ToppingModel;
 import com.DeliveryFood.lib.Repository.Methods;
 import com.DeliveryFood.lib.retrofitClient;
-import com.deliveryfood.Adapter.ItemFoodAdapterRecyclerview;
+import com.deliveryfood.Adapter.MoreFoodAdapter;
 import com.deliveryfood.Adapter.PhotoAdapter;
-import com.deliveryfood.Adapter.ProductAdapterRecyclerview;
 import com.deliveryfood.Adapter.ToppingAdapterRecyclerview;
 import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
+import com.deliveryfood.common.MonneyFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +113,7 @@ public class Fragment_detail extends Fragment {
         viewPager = view.findViewById(R.id.view_Pager_Detail);
         circleIndicator = view.findViewById(R.id.Circle_Indicator_Detail);
 
+
         anhXa();
         GetToppingList();
         try {
@@ -144,7 +143,7 @@ public class Fragment_detail extends Fragment {
                 if (mainActivity.getTaiKhoan() != null) {
                     cartItem.setSDT(mainActivity.getTaiKhoan().getData().getSdt());
                     Methods methods = retrofitClient.getRetrofit().create(Methods.class);
-                    Call<ResultModel> call = methods.InsertFoodCart(cartItem);
+                    Call<ResultModel> call = methods.InsertFoodCart(cartItem, "Bearer " + mainActivity.jwt.getToken());
                     call.enqueue(new Callback<ResultModel>() {
                         @Override
                         public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
@@ -175,13 +174,13 @@ public class Fragment_detail extends Fragment {
         call.enqueue(new Callback<FoodModel>() {
             @Override
             public void onResponse(Call<FoodModel> call, Response<FoodModel> response) {
-                ProductAdapterRecyclerview categoryApdapter =
-                        new ProductAdapterRecyclerview(getContext(), R.layout.item_product,
-                                response.body().getData(), new ProductAdapterRecyclerview.OnNoteListener() {
+                MoreFoodAdapter categoryApdapter =
+                        new MoreFoodAdapter(getContext(), R.layout.item_product,
+                                response.body().getData(), new MoreFoodAdapter.OnNoteListener() {
                             @Override
                             public void onNoteClick(FoodModel.Data position) {
                                 // go to detail
-                                chuyenData (position);
+                                chuyenData(position);
                             }
                         }
                         );
@@ -199,7 +198,7 @@ public class Fragment_detail extends Fragment {
 
     }
 
-    private  List<ToppingModel.Data>  toppings;
+    private List<ToppingModel.Data> toppings;
 
     private void GetToppingList() {
         Methods methods = retrofitClient.getRetrofit().create(Methods.class);
@@ -275,7 +274,6 @@ public class Fragment_detail extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
-
                 fragmentTransaction.replace(R.id.fragmentContainerView, new CartFragment());
                 fragmentTransaction.addToBackStack("fragment cart ");
                 fragmentTransaction.commit();
@@ -317,9 +315,14 @@ public class Fragment_detail extends Fragment {
 
     }
 
+    float gia;
+
     private void SetData(FoodModel.Data product_in) {
         Name.setText(product_in.getName_Food());
-        Price.setText(Float.toString((Float) product_in.getPrice()) + " đ");
+        gia = product_in.getPrice();
+        if (product_in.getPercenDiscount() != 0)
+            gia = gia - (product_in.getPrice() * product_in.getPercenDiscount() / 100);
+        Price.setText(MonneyFormat.formatMonney((long) gia));
         description.setText(product_in.getDescription());
     }
 

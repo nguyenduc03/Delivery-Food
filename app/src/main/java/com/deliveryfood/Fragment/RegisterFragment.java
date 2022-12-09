@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.DeliveryFood.lib.Model.AccountInsertModel;
 import com.DeliveryFood.lib.Repository.Methods;
 import com.DeliveryFood.lib.retrofitClient;
+import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
 
 import retrofit2.Call;
@@ -67,12 +68,11 @@ public class RegisterFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+MainActivity mainActivity ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         result = inflater.inflate(R.layout.fragment_register, container, false);
-        ;
         anhxa();
         Button btn = result.findViewById(R.id.dangki);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +81,7 @@ public class RegisterFragment extends Fragment {
                 solve();
             }
         });
+        mainActivity = (MainActivity) getActivity();
 
         btn_go_DangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +112,6 @@ public class RegisterFragment extends Fragment {
         Methods methods = retrofitClient.getRetrofit().create(Methods.class);
         System.out.println(password.getText().toString().trim());
         AccountInsertModel Account = new AccountInsertModel();
-
         Account.setName(name.getText().toString());
         Account.setPassword(password.getText().toString());
         Account.setSDT(phone.getText().toString());

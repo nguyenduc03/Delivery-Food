@@ -36,14 +36,59 @@
             android:weightSum="2"
             android:orientation="vertical"
             android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/ten_sanpham"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:text="hello"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:layout_height="0dp"/>
+                android:layout_height="0dp">
+
+                <TextView
+                    android:id="@+id/ten_sanpham"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginRight="54dp"
+                    android:text="hello"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintTemp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/discount2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/Discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:paddingRight="5dp"
+                        android:text="50%"
+                        android:textColor="#FF3D3D"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

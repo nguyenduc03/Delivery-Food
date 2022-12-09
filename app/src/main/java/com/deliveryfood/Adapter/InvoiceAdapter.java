@@ -16,6 +16,7 @@ import com.DeliveryFood.lib.Model.InvoiceModel;
 import com.deliveryfood.Fragment.invoiceDetailFragment;
 import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
+import com.deliveryfood.common.MonneyFormat;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.FoodView
         //Picasso.get().load(temp.get(0).getImg()).into(holder.imgviewFood);
         holder.imgviewFood.setImageResource(R.drawable.food);
         holder.NgayDat.setText(list.get(position).getDate_Create());
-        holder.Gia.setText(Float.toString((Float) list.get(position).getTotal_Money()));
+        holder.Gia.setText(MonneyFormat.formatMonney((long) list.get(position).getTotal_Money()));
         holder.Item_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

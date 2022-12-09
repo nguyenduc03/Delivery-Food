@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.DeliveryFood.lib.Model.FoodModel;
 import com.deliveryfood.R;
+import com.deliveryfood.common.MonneyFormat;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -68,7 +69,7 @@ public class ProductAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         FoodModel.Data product = products.get(position);
-        viewHolder.gia.setText(Float.toString((float) product.getPrice()) + " đ");
+        viewHolder.gia.setText(MonneyFormat.formatMonney((long) product.getPrice()));
         viewHolder.Name.setText(product.getName_Food());
         Picasso.get().load(product.getPicture()).into(viewHolder.Img);
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_in);

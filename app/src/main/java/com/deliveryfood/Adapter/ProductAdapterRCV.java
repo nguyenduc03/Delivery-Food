@@ -12,10 +12,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.DeliveryFood.lib.Model.FoodModel;
 import com.deliveryfood.R;
+import com.deliveryfood.common.MonneyFormat;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -66,9 +68,18 @@ public class ProductAdapterRCV extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (Food == null)
                 return;
             else {
+                if (Food.getPercenDiscount() == 0) {
+                    productViewHolder.constraintTemp.setVisibility(View.GONE);
+                } else {
+                    productViewHolder.constraintTemp.setVisibility(View.VISIBLE);
+                    productViewHolder.Discount.setText(Food.getPercenDiscount() + "%");
+                }
                 Picasso.get().load(Food.getPicture()).into(productViewHolder.Img);
                 productViewHolder.Name.setText(Food.getName_Food());
-                productViewHolder.gia.setText(Integer.toString((int) Food.getPrice()) + "đ");
+                float gia = Food.getPrice();
+                if (Food.getPercenDiscount() != 0)
+                    gia = gia - (Food.getPrice() * Food.getPercenDiscount() / 100);
+                productViewHolder.gia.setText(MonneyFormat.formatMonney((long) gia));
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_in);
                 productViewHolder.Rcv_food.startAnimation(animation);
             }
@@ -100,6 +111,8 @@ public class ProductAdapterRCV extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView MoTa;
         TextView gia;
         LinearLayout Rcv_food;
+        TextView Discount;
+        ConstraintLayout constraintTemp;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,6 +121,8 @@ public class ProductAdapterRCV extends RecyclerView.Adapter<RecyclerView.ViewHol
             Name = (TextView) itemView.findViewById(R.id.ten_sanpham);
             MoTa = (TextView) itemView.findViewById(R.id.mota_sanpham);
             Rcv_food = itemView.findViewById(R.id.Rcv_food);
+            Discount = itemView.findViewById(R.id.Discount);
+            constraintTemp = itemView.findViewById(R.id.constraintTemp);
 
         }
     }

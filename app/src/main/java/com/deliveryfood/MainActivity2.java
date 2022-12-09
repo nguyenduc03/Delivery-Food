@@ -1,9 +1,9 @@
 package com.deliveryfood;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -19,7 +19,9 @@ public class MainActivity2 extends AppCompatActivity {
 
                 } finally {
                     Intent intent = new Intent(MainActivity2.this, MainActivity.class);
-                    startActivity(intent);
+                                        startActivity(intent);
+
+
                     finish();
                 }
 

@@ -2,7 +2,6 @@ package com.deliveryfood.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +11,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.DeliveryFood.lib.Entities.Jwt;
 import com.DeliveryFood.lib.Interface.IChuyenData;
 import com.DeliveryFood.lib.Model.Account;
-import com.DeliveryFood.lib.Model.DiscountModel;
 import com.DeliveryFood.lib.Model.FoodModel;
+import com.DeliveryFood.lib.Model.IMGModel;
 import com.DeliveryFood.lib.Model.ResultModel;
+import com.DeliveryFood.lib.Model.UsertModel;
 import com.DeliveryFood.lib.Repository.Methods;
 import com.DeliveryFood.lib.retrofitClient;
 import com.deliveryfood.Adapter.PhotoAdapter;
@@ -30,6 +32,7 @@ import com.deliveryfood.Adapter.ProductAdapterRecyclerview;
 import com.deliveryfood.Adapter.TopProductAdapter;
 import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
+import com.squareup.picasso.Picasso;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -69,6 +72,8 @@ public class HomeFragment extends Fragment {
     private Button btnXemThemBC;
     private RecyclerView discountFoods;
     private ImageButton btnCart;
+    private ImageView imgAvatar;
+    private CardView cardViewAvatar;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -112,6 +117,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         InitData(view);
         loadData(inflater.getContext());
         OnClick();
@@ -143,6 +149,7 @@ public class HomeFragment extends Fragment {
                 goToFragment(fragment, R.id.menu_nav_buy);
             }
         });
+
     }
 
     private void goToFragment(Fragment fragment, int menu_nav_buy) {
@@ -157,14 +164,18 @@ public class HomeFragment extends Fragment {
 
     private void loadData(Context context) {
         LoadviewPager(context);
+        try {
+            Thread.sleep(300);
+        } catch (Exception e) {
+        }
         LoadNewFoods();
         try {
-            Thread.sleep(200);
+            Thread.sleep(300);
         } catch (Exception e) {
         }
         LoadBestFoods();
         try {
-            Thread.sleep(200);
+            Thread.sleep(300);
         } catch (Exception e) {
         }
         LoadBestDiscountFoods();
@@ -183,8 +194,29 @@ public class HomeFragment extends Fragment {
             LoiChao = "Xin chào buổi tối";
             imgSun.setImageResource(R.drawable.night);
         }
-        if (account != null)
+        if (account != null) {
+            imgAvatar.setVisibility(View.VISIBLE);
+            Picasso.get().load(account.getData().getAvatar()).into(imgAvatar);
+            cardViewAvatar.setVisibility(View.VISIBLE);
             LoiChao += "\n" + account.getData().getName();
+            UsertModel user = new UsertModel(account.getData().getSdt(), account.getData().getPassword());
+            Methods methods = retrofitClient.getRetrofit().create(Methods.class);
+            Call<Jwt> call = methods.getToken(user);
+            call.enqueue(new Callback<Jwt>() {
+                @Override
+                public void onResponse(Call<Jwt> call, Response<Jwt> response) {
+                    if (!response.body().getToken().isEmpty()) {
+                        mainActivity.jwt = response.body();
+                        getQRCode();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Jwt> call, Throwable t) {
+
+                }
+            });
+        }
         txtXinChao.setText(LoiChao);
     }
 
@@ -203,6 +235,7 @@ public class HomeFragment extends Fragment {
         account = mainActivity.getTaiKhoan();
         viewPager = view.findViewById(R.id.viewPagerSuKien);
         circleIndicator = view.findViewById(R.id.CircleIndicator_home);
+        cardViewAvatar = view.findViewById(R.id.cardViewAvatar);
         recyclerView = view.findViewById(R.id.listSPMoi);
         imgSun = view.findViewById(R.id.imgSun);
         btnXemThemBC = view.findViewById(R.id.btnXemThemBC);
@@ -211,17 +244,18 @@ public class HomeFragment extends Fragment {
         txtXinChao = view.findViewById(R.id.txtXinChao);
         discountFoods = view.findViewById(R.id.discountFoods);
         btnCart = view.findViewById(R.id.btnCart);
-
+        imgAvatar = view.findViewById(R.id.imgAvatar);
         setLoiChao();
         // cập nhật giỏ hàng
         if (account != null) {
             if (mainActivity.cartItems.size() > 0) {
                 Methods methods = retrofitClient.getRetrofit().create(Methods.class);
-                Call<ResultModel> callInsertCart = methods.InsertCart(mainActivity.cartItems);
+                Call<ResultModel> callInsertCart = methods.InsertCart(mainActivity.cartItems, "Bearer " + mainActivity.jwt.getToken());
                 callInsertCart.enqueue(new Callback<ResultModel>() {
                     @Override
                     public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
                         response.code();
+
                     }
 
                     @Override
@@ -239,7 +273,24 @@ public class HomeFragment extends Fragment {
         callTopFoodDiscount.enqueue(new Callback<FoodModel>() {
             @Override
             public void onResponse(Call<FoodModel> call, Response<FoodModel> response) {
-
+                if (response.body().isStatus()) {
+                    FoodModel temp = new FoodModel();
+                    temp.setData(response.body().getData());
+                    TopProductAdapter categoryApdapter =
+                            new TopProductAdapter(getContext(), R.layout.item_product,
+                                    temp.getData(), new TopProductAdapter.OnNoteListener() {
+                                @Override
+                                public void onNoteClick(FoodModel.Data position) {
+                                    // GO TO DETAIL
+                                    chuyenData(position);
+                                }
+                            }
+                            );
+                    categoryApdapter.setList(temp.getData());
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                    discountFoods.setLayoutManager(linearLayoutManager);
+                    discountFoods.setAdapter(categoryApdapter);
+                }
             }
 
             @Override
@@ -271,6 +322,7 @@ public class HomeFragment extends Fragment {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
                 bestSaleFoods.setLayoutManager(linearLayoutManager);
                 bestSaleFoods.setAdapter(categoryApdapter);
+
             }
 
             @Override
@@ -315,5 +367,24 @@ public class HomeFragment extends Fragment {
 
     public void chuyenData(FoodModel.Data product) {
         iChuyenData.ChuyenData(product);
+    }
+
+    private void getQRCode() {
+        Methods methods = retrofitClient.getRetrofit().create(Methods.class);
+        Call<IMGModel> callGetQR = methods.getQRCode(mainActivity.getTaiKhoan().data, "Bearer " + mainActivity.jwt.getToken());
+        callGetQR.enqueue(new Callback<IMGModel>() {
+            @Override
+            public void onResponse(Call<IMGModel> call, Response<IMGModel> response) {
+                if (response.body().isStatus()) {
+                    mainActivity.setQRCode(response.body().getData());
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<IMGModel> call, Throwable t) {
+
+            }
+        });
     }
 }

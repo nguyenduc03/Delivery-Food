@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.deliveryfood.MainActivity;
 import com.deliveryfood.R;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
@@ -70,6 +71,7 @@ public class DangNhapFragment extends Fragment {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         Fragment fragment = new fragment_login();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out);
+        MainActivity mainActivity = (MainActivity) getActivity();
 
         fragmentTransaction.replace(R.id.dang_nhap_content, fragment);
         fragmentTransaction.addToBackStack("Fragment home");
